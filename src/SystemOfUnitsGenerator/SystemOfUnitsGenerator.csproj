@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{396BCE9B-9608-4EEC-B024-4154BAB2D127}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SystemOfUnitsGenerator</RootNamespace>
+    <AssemblyName>SystemOfUnitsGenerator</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\IContentFileBuilder.cs" />
+    <Compile Include="Common\IContentFileBuilderCollection.cs" />
+    <Compile Include="Common\XmlDoc.cs" />
+    <Compile Include="Generators\IGenerator.cs" />
+    <Compile Include="Common\FilesGenerator.cs" />
+    <Compile Include="Common\IContentFile.cs" />
+    <Compile Include="Common\CSharpFile.cs" />
+    <Compile Include="Common\CSharpPartialFile.cs" />
+    <Compile Include="Common\FileSystem.cs" />
+    <Compile Include="Generators\Units\BitClassesGenerator.cs" />
+    <Compile Include="Generators\Units\Byte1000ClassesGenerator.cs" />
+    <Compile Include="Generators\Units\Byte1024ClassesGenerator.cs" />
+    <Compile Include="Generators\Units\ContextWithCastByPowerBuilder.cs" />
+    <Compile Include="Generators\Units\CubicMetreClassesGenerator.cs" />
+    <Compile Include="Generators\Engine\ContextWithCastByPower.cs" />
+    <Compile Include="Generators\Engine\IContext.cs" />
+    <Compile Include="Generators\BuildersCollection\ContextBuilderCollection.cs" />
+    <Compile Include="Generators\BuildersCollection\ContextWithCastByPowerBuilderCollection.cs" />
+    <Compile Include="Generators\BuildersCollection\ContextWithCastByRatioBuilderCollection.cs" />
+    <Compile Include="Generators\Builders\CastByPowerCodeClassBuilder.cs" />
+    <Compile Include="Generators\Builders\CastByPowerTestClassBuilder.cs" />
+    <Compile Include="Generators\Units\GramClassesGenerator.cs" />
+    <Compile Include="Generators\Units\HertzClassesGenerator.cs" />
+    <Compile Include="Generators\Units\ImperialLengthClassesGenerator.cs" />
+    <Compile Include="Generators\Units\JouleClassesGenerator.cs" />
+    <Compile Include="Generators\Units\LitreClassesGenerator.cs" />
+    <Compile Include="Generators\Units\MetreClassesGenerator.cs" />
+    <Compile Include="Generators\Units\AbstractMetricClassesGenerator.cs" />
+    <Compile Include="Generators\Units\PercentageGenerator.cs" />
+    <Compile Include="Generators\Units\SquareMetreClassesGenerator.cs" />
+    <Compile Include="Generators\Units\TemperatureClassesGenerator.cs" />
+    <Compile Include="Generators\Templates\CodeClassTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CodeClassTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generators\Templates\TestClassTemplate_Partial.cs" />
+    <Compile Include="Generators\Templates\CodeClassTemplate_Partial.cs" />
+    <Compile Include="Generators\Templates\TestClassTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestClassTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ClassDefinition.cs" />
+    <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Common\FullQualifiedClass.cs" />
+    <Compile Include="Common\NamespaceCollection.cs" />
+    <Compile Include="Common\NamespaceDefinition.cs" />
+    <Compile Include="Generators\Units\AngleClassesGenerator.cs" />
+    <Compile Include="Generators\Engine\ContextWithCastByRatio.cs" />
+    <Compile Include="Generators\Builders\CastByRatioCodeClassBuilder.cs" />
+    <Compile Include="Generators\Builders\CastByRatioTestClassBuilder.cs" />
+    <Compile Include="Generators\Engine\Context.cs" />
+    <Compile Include="Generators\Builders\MainCodeClassBuilder.cs" />
+    <Compile Include="Generators\Builders\MainTestClassBuilder.cs" />
+    <Compile Include="Generators\Units\TimeClassesGenerator.cs" />
+    <Compile Include="Generators\Units\WattClassesGenerator.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Generators\Templates\CodeClassTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CodeClassTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="Generators\Templates\TestClassTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestClassTemplate.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

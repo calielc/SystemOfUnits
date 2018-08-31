@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit.3.10.1\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.10.1\build\NUnit.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6C8B4743-A753-442D-819C-4E4A8CE81724}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SystemOfUnitsTests</RootNamespace>
+    <AssemblyName>SystemOfUnitsTests</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Angle\DegreeTest.cs" />
+    <Compile Include="Angle\DegreeTest_Custom.cs" />
+    <Compile Include="Angle\RadianTest_Custom.cs" />
+    <Compile Include="Angle\DegreeTest_Casting.cs" />
+    <Compile Include="Angle\MilliradianTest.cs" />
+    <Compile Include="Angle\MilliradianTest_Casting.cs" />
+    <Compile Include="Angle\RadianTest.cs" />
+    <Compile Include="Angle\RadianTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareAttometreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareAttometreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareCentimetreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareCentimetreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareDecametreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareDecametreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareDecimetreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareDecimetreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareExametreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareExametreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareFemtometreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareFemtometreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareGigametreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareGigametreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareHectometreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareHectometreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareKilometreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareKilometreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareMegametreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareMegametreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareMetreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareMetreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareMicrometreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareMicrometreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareMillimetreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareMillimetreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareNanometreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareNanometreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquarePetametreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquarePetametreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquarePicometreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquarePicometreTest_Casting.cs" />
+    <Compile Include="Area\SquareMetre\SquareTerametreTest.cs" />
+    <Compile Include="Area\SquareMetre\SquareTerametreTest_Casting.cs" />
+    <Compile Include="Consts.cs" />
+    <Compile Include="DigitalInformation\Bit\BitTest.cs" />
+    <Compile Include="DigitalInformation\Bit\BitTest_Casting.cs" />
+    <Compile Include="DigitalInformation\Bit\GigabitTest.cs" />
+    <Compile Include="DigitalInformation\Bit\GigabitTest_Casting.cs" />
+    <Compile Include="DigitalInformation\Bit\KilobitTest.cs" />
+    <Compile Include="DigitalInformation\Bit\KilobitTest_Casting.cs" />
+    <Compile Include="DigitalInformation\Bit\MegabitTest.cs" />
+    <Compile Include="DigitalInformation\Bit\MegabitTest_Casting.cs" />
+    <Compile Include="DigitalInformation\Bit\TerabitTest.cs" />
+    <Compile Include="DigitalInformation\Bit\TerabitTest_Casting.cs" />
+    <Compile Include="DigitalInformation\Byte\ByteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\ByteTest_Casting1000.cs" />
+    <Compile Include="DigitalInformation\Byte\ByteTest_Custom.cs" />
+    <Compile Include="DigitalInformation\Byte\ByteTest_Casting1024.cs" />
+    <Compile Include="DigitalInformation\Byte\ExabyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\ExabyteTest_Casting1000.cs" />
+    <Compile Include="DigitalInformation\Byte\ExbibyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\ExbibyteTest_Casting1024.cs" />
+    <Compile Include="DigitalInformation\Byte\GibibyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\GibibyteTest_Casting1024.cs" />
+    <Compile Include="DigitalInformation\Byte\GigabyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\GigabyteTest_Casting1000.cs" />
+    <Compile Include="DigitalInformation\Byte\KibibyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\KibibyteTest_Casting1024.cs" />
+    <Compile Include="DigitalInformation\Byte\KilobyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\KilobyteTest_Casting1000.cs" />
+    <Compile Include="DigitalInformation\Byte\MebibyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\MebibyteTest_Casting1024.cs" />
+    <Compile Include="DigitalInformation\Byte\MegabyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\MegabyteTest_Casting1000.cs" />
+    <Compile Include="DigitalInformation\Byte\PebibyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\PebibyteTest_Casting1024.cs" />
+    <Compile Include="DigitalInformation\Byte\PetabyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\PetabyteTest_Casting1000.cs" />
+    <Compile Include="DigitalInformation\Byte\TebibyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\TebibyteTest_Casting1024.cs" />
+    <Compile Include="DigitalInformation\Byte\TerabyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\TerabyteTest_Casting1000.cs" />
+    <Compile Include="DigitalInformation\Byte\YobibyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\YobibyteTest_Casting1024.cs" />
+    <Compile Include="DigitalInformation\Byte\YottabyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\YottabyteTest_Casting1000.cs" />
+    <Compile Include="DigitalInformation\Byte\ZebibyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\ZebibyteTest_Casting1024.cs" />
+    <Compile Include="DigitalInformation\Byte\ZettabyteTest.cs" />
+    <Compile Include="DigitalInformation\Byte\ZettabyteTest_Casting1000.cs" />
+    <Compile Include="Energy\Joule\CentijouleTest.cs" />
+    <Compile Include="Energy\Joule\CentijouleTest_Casting.cs" />
+    <Compile Include="Energy\Joule\DecajouleTest.cs" />
+    <Compile Include="Energy\Joule\DecajouleTest_Casting.cs" />
+    <Compile Include="Energy\Joule\DecijouleTest.cs" />
+    <Compile Include="Energy\Joule\DecijouleTest_Casting.cs" />
+    <Compile Include="Energy\Joule\HectojouleTest.cs" />
+    <Compile Include="Energy\Joule\HectojouleTest_Casting.cs" />
+    <Compile Include="Energy\Joule\JouleTest.cs" />
+    <Compile Include="Energy\Joule\JouleTest_Casting.cs" />
+    <Compile Include="Energy\Joule\KilojouleTest.cs" />
+    <Compile Include="Energy\Joule\KilojouleTest_Casting.cs" />
+    <Compile Include="Energy\Joule\MillijouleTest.cs" />
+    <Compile Include="Energy\Joule\MillijouleTest_Casting.cs" />
+    <Compile Include="Frequency\Hertz\CentihertzTest.cs" />
+    <Compile Include="Frequency\Hertz\CentihertzTest_Casting.cs" />
+    <Compile Include="Frequency\Hertz\DecahertzTest.cs" />
+    <Compile Include="Frequency\Hertz\DecahertzTest_Casting.cs" />
+    <Compile Include="Frequency\Hertz\DecihertzTest.cs" />
+    <Compile Include="Frequency\Hertz\DecihertzTest_Casting.cs" />
+    <Compile Include="Frequency\Hertz\HectohertzTest.cs" />
+    <Compile Include="Frequency\Hertz\HectohertzTest_Casting.cs" />
+    <Compile Include="Frequency\Hertz\HertzTest.cs" />
+    <Compile Include="Frequency\Hertz\HertzTest_Casting.cs" />
+    <Compile Include="Frequency\Hertz\KilohertzTest.cs" />
+    <Compile Include="Frequency\Hertz\KilohertzTest_Casting.cs" />
+    <Compile Include="Frequency\Hertz\MillihertzTest.cs" />
+    <Compile Include="Frequency\Hertz\MillihertzTest_Casting.cs" />
+    <Compile Include="Length\Imperial\FootTest.cs" />
+    <Compile Include="Length\Imperial\FootTest_Casting.cs" />
+    <Compile Include="Length\Imperial\InchTest.cs" />
+    <Compile Include="Length\Imperial\InchTest_Casting.cs" />
+    <Compile Include="Length\Imperial\InchTest_Custom.cs" />
+    <Compile Include="Length\Imperial\MileTest.cs" />
+    <Compile Include="Length\Imperial\MileTest_Casting.cs" />
+    <Compile Include="Length\Imperial\MileTest_Custom.cs" />
+    <Compile Include="Length\Imperial\YardTest.cs" />
+    <Compile Include="Length\Imperial\YardTest_Casting.cs" />
+    <Compile Include="Length\Metre\AttometreTest.cs" />
+    <Compile Include="Length\Metre\AttometreTest_Casting.cs" />
+    <Compile Include="Length\Metre\CentimetreTest.cs" />
+    <Compile Include="Length\Metre\CentimetreTest_Casting.cs" />
+    <Compile Include="Length\Metre\DecametreTest.cs" />
+    <Compile Include="Length\Metre\DecametreTest_Casting.cs" />
+    <Compile Include="Length\Metre\DecimetreTest.cs" />
+    <Compile Include="Length\Metre\DecimetreTest_Casting.cs" />
+    <Compile Include="Length\Metre\ExametreTest.cs" />
+    <Compile Include="Length\Metre\ExametreTest_Casting.cs" />
+    <Compile Include="Length\Metre\FemtometreTest.cs" />
+    <Compile Include="Length\Metre\FemtometreTest_Casting.cs" />
+    <Compile Include="Length\Metre\GigametreTest.cs" />
+    <Compile Include="Length\Metre\GigametreTest_Casting.cs" />
+    <Compile Include="Length\Metre\HectometreTest.cs" />
+    <Compile Include="Length\Metre\HectometreTest_Casting.cs" />
+    <Compile Include="Length\Metre\KilometreTest.cs" />
+    <Compile Include="Length\Metre\KilometreTest_Casting.cs" />
+    <Compile Include="Length\Metre\MegametreTest.cs" />
+    <Compile Include="Length\Metre\MegametreTest_Casting.cs" />
+    <Compile Include="Length\Metre\MetreTest.cs" />
+    <Compile Include="Length\Metre\MetreTest_Casting.cs" />
+    <Compile Include="Length\Metre\MetreTest_Custom.cs" />
+    <Compile Include="Length\Metre\MicrometreTest.cs" />
+    <Compile Include="Length\Metre\MicrometreTest_Casting.cs" />
+    <Compile Include="Length\Metre\MillimetreTest.cs" />
+    <Compile Include="Length\Metre\MillimetreTest_Casting.cs" />
+    <Compile Include="Length\Metre\NanometreTest.cs" />
+    <Compile Include="Length\Metre\NanometreTest_Casting.cs" />
+    <Compile Include="Length\Metre\PetametreTest.cs" />
+    <Compile Include="Length\Metre\PetametreTest_Casting.cs" />
+    <Compile Include="Length\Metre\PicometreTest.cs" />
+    <Compile Include="Length\Metre\PicometreTest_Casting.cs" />
+    <Compile Include="Length\Metre\TerametreTest.cs" />
+    <Compile Include="Length\Metre\TerametreTest_Casting.cs" />
+    <Compile Include="Mass\Gram\CentigramTest.cs" />
+    <Compile Include="Mass\Gram\CentigramTest_Casting.cs" />
+    <Compile Include="Mass\Gram\DecagramTest.cs" />
+    <Compile Include="Mass\Gram\DecagramTest_Casting.cs" />
+    <Compile Include="Mass\Gram\DecigramTest.cs" />
+    <Compile Include="Mass\Gram\DecigramTest_Casting.cs" />
+    <Compile Include="Mass\Gram\GramTest.cs" />
+    <Compile Include="Mass\Gram\GramTest_Casting.cs" />
+    <Compile Include="Mass\Gram\HectogramTest.cs" />
+    <Compile Include="Mass\Gram\HectogramTest_Casting.cs" />
+    <Compile Include="Mass\Gram\KilogramTest.cs" />
+    <Compile Include="Mass\Gram\KilogramTest_Casting.cs" />
+    <Compile Include="Mass\Gram\MilligramTest.cs" />
+    <Compile Include="Mass\Gram\MilligramTest_Casting.cs" />
+    <Compile Include="Others\PercentageTest.cs" />
+    <Compile Include="Power\Watt\CentiwattTest.cs" />
+    <Compile Include="Power\Watt\CentiwattTest_Casting.cs" />
+    <Compile Include="Power\Watt\DecawattTest.cs" />
+    <Compile Include="Power\Watt\DecawattTest_Casting.cs" />
+    <Compile Include="Power\Watt\DeciwattTest.cs" />
+    <Compile Include="Power\Watt\DeciwattTest_Casting.cs" />
+    <Compile Include="Power\Watt\HectowattTest.cs" />
+    <Compile Include="Power\Watt\HectowattTest_Casting.cs" />
+    <Compile Include="Power\Watt\KilowattTest.cs" />
+    <Compile Include="Power\Watt\KilowattTest_Casting.cs" />
+    <Compile Include="Power\Watt\MilliwattTest.cs" />
+    <Compile Include="Power\Watt\MilliwattTest_Casting.cs" />
+    <Compile Include="Power\Watt\WattTest.cs" />
+    <Compile Include="Power\Watt\WattTest_Casting.cs" />
+    <Compile Include="Temperature\CelsiusTest.cs" />
+    <Compile Include="Temperature\FahrenheitTest.cs" />
+    <Compile Include="Temperature\KelvinTest.cs" />
+    <Compile Include="Temperature\KelvinTest_Custom.cs" />
+    <Compile Include="Temperature\CelsiusTest_Custom.cs" />
+    <Compile Include="Temperature\FahrenheitTest_Custom.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Time\DayTest.cs" />
+    <Compile Include="Time\DayTest_Casting.cs" />
+    <Compile Include="Time\MonthTest_Custom.cs" />
+    <Compile Include="Time\YearTest_Custom.cs" />
+    <Compile Include="Time\WeekTest_Custom.cs" />
+    <Compile Include="Time\SecondTest_Custom.cs" />
+    <Compile Include="Time\MinuteTest_Custom.cs" />
+    <Compile Include="Time\MillisecondTest_Custom.cs" />
+    <Compile Include="Time\HourTest_Custom.cs" />
+    <Compile Include="Time\DayTest_Custom.cs" />
+    <Compile Include="Time\HourTest.cs" />
+    <Compile Include="Time\HourTest_Casting.cs" />
+    <Compile Include="Time\MillisecondTest.cs" />
+    <Compile Include="Time\MillisecondTest_Casting.cs" />
+    <Compile Include="Time\MinuteTest.cs" />
+    <Compile Include="Time\MinuteTest_Casting.cs" />
+    <Compile Include="Time\MonthTest.cs" />
+    <Compile Include="Time\MonthTest_Casting.cs" />
+    <Compile Include="Time\SecondTest.cs" />
+    <Compile Include="Time\SecondTest_Casting.cs" />
+    <Compile Include="Time\WeekTest.cs" />
+    <Compile Include="Time\WeekTest_Casting.cs" />
+    <Compile Include="Time\YearTest.cs" />
+    <Compile Include="Time\YearTest_Casting.cs" />
+    <Compile Include="Volume\CubicMetre\CubicCentimetreTest.cs" />
+    <Compile Include="Volume\CubicMetre\CubicCentimetreTest_Casting.cs" />
+    <Compile Include="Volume\CubicMetre\CubicDecametreTest.cs" />
+    <Compile Include="Volume\CubicMetre\CubicDecametreTest_Casting.cs" />
+    <Compile Include="Volume\CubicMetre\CubicDecimetreTest.cs" />
+    <Compile Include="Volume\CubicMetre\CubicDecimetreTest_Casting.cs" />
+    <Compile Include="Volume\CubicMetre\CubicHectometreTest.cs" />
+    <Compile Include="Volume\CubicMetre\CubicHectometreTest_Casting.cs" />
+    <Compile Include="Volume\CubicMetre\CubicKilometreTest.cs" />
+    <Compile Include="Volume\CubicMetre\CubicKilometreTest_Casting.cs" />
+    <Compile Include="Volume\CubicMetre\CubicMetreTest.cs" />
+    <Compile Include="Volume\CubicMetre\CubicMetreTest_Casting.cs" />
+    <Compile Include="Volume\CubicMetre\CubicMillimetreTest.cs" />
+    <Compile Include="Volume\CubicMetre\CubicMillimetreTest_Casting.cs" />
+    <Compile Include="Volume\Litre\CentilitreTest.cs" />
+    <Compile Include="Volume\Litre\CentilitreTest_Casting.cs" />
+    <Compile Include="Volume\Litre\DecalitreTest.cs" />
+    <Compile Include="Volume\Litre\DecalitreTest_Casting.cs" />
+    <Compile Include="Volume\Litre\DecilitreTest.cs" />
+    <Compile Include="Volume\Litre\DecilitreTest_Casting.cs" />
+    <Compile Include="Volume\Litre\HectolitreTest.cs" />
+    <Compile Include="Volume\Litre\HectolitreTest_Casting.cs" />
+    <Compile Include="Volume\Litre\KilolitreTest.cs" />
+    <Compile Include="Volume\Litre\KilolitreTest_Casting.cs" />
+    <Compile Include="Volume\Litre\LitreTest.cs" />
+    <Compile Include="Volume\Litre\LitreTest_Casting.cs" />
+    <Compile Include="Volume\Litre\MillilitreTest.cs" />
+    <Compile Include="Volume\Litre\MillilitreTest_Casting.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SystemOfUnits\SystemOfUnits.csproj">
+      <Project>{12432e39-1f74-4d97-a98d-00ec502d693a}</Project>
+      <Name>SystemOfUnits</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NUnit.3.10.1\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.10.1\build\NUnit.props'))" />
+  </Target>
+</Project>

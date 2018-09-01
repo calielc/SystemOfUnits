@@ -12,9 +12,9 @@ namespace SystemOfUnitsTests.Mass.Gram {
             Assert.AreEqual("g", Gram.Symbol);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        public static readonly double[] CasesValues = { -7.65d, 0d, 1.757899e2 };
+
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_initialize_instance(double value) {
             var actual = new Gram(value);
 
@@ -22,18 +22,14 @@ namespace SystemOfUnitsTests.Mass.Gram {
             Assert.AreEqual(value, actual.Value, nameof(actual.Value));
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_have_a_symbol(double value) {
             IUnit actual = new Gram(value);
 
             Assert.AreEqual(Gram.Symbol, actual.Symbol);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_clone(double value) {
             var expected = new Gram(value);
 
@@ -43,9 +39,7 @@ namespace SystemOfUnitsTests.Mass.Gram {
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_cast_from_double(double value) {
             var expected = new Gram(value);
 
@@ -54,9 +48,7 @@ namespace SystemOfUnitsTests.Mass.Gram {
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_cast_to_double(double value) {
             var instance = new Gram(value);
 
@@ -65,9 +57,7 @@ namespace SystemOfUnitsTests.Mass.Gram {
             Assert.AreEqual(value, actual);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_compare_with_same_value(double value) {
             var baseInstance = new Gram(value);
             var otherInstance = new Gram(value);
@@ -140,9 +130,7 @@ namespace SystemOfUnitsTests.Mass.Gram {
             Assert.IsFalse(baseInstance >= biggerInstance, ">=");
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_compare_with_null_instance(double value) {
             var instance = new Gram(value);
 
@@ -150,9 +138,7 @@ namespace SystemOfUnitsTests.Mass.Gram {
             Assert.AreEqual(1, instance.CompareTo(null), "CompareTo");
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_compare_with_another_type_of_instance(double value) {
             var instance1 = new Gram(value);
             object instance2 = value;
@@ -253,9 +239,7 @@ namespace SystemOfUnitsTests.Mass.Gram {
             Assert.AreEqual(expectedValue, actual.Value);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_convert_to_string(double value) {
             var expected = $"{value:e} g";
 
@@ -279,9 +263,7 @@ namespace SystemOfUnitsTests.Mass.Gram {
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_own_a_HashCode(double value) {
             var expected = value.GetHashCode();
 

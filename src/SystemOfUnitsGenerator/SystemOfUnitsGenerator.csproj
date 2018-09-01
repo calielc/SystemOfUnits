@@ -48,42 +48,58 @@
     <Compile Include="Common\IContentFileBuilder.cs" />
     <Compile Include="Common\IContentFileBuilderCollection.cs" />
     <Compile Include="Common\XmlDoc.cs" />
-    <Compile Include="Generators\IGenerator.cs" />
+    <Compile Include="GeneratorsCurrency\Builders\ClassesBuilder.cs" />
+    <Compile Include="GeneratorsCurrency\Builders\CodeClassBuilder.cs" />
+    <Compile Include="GeneratorsCurrency\Builders\TestClassBuilder.cs" />
+    <Compile Include="GeneratorsCurrency\Templates\TestClassTemplate.cs">
+      <DependentUpon>TestClassTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="GeneratorsCurrency\Templates\TestClassTemplate_Partial.cs" />
+    <Compile Include="IGenerator.cs" />
     <Compile Include="Common\FilesGenerator.cs" />
     <Compile Include="Common\IContentFile.cs" />
     <Compile Include="Common\CSharpFile.cs" />
     <Compile Include="Common\CSharpPartialFile.cs" />
     <Compile Include="Common\FileSystem.cs" />
-    <Compile Include="Generators\Units\BitClassesGenerator.cs" />
-    <Compile Include="Generators\Units\Byte1000ClassesGenerator.cs" />
-    <Compile Include="Generators\Units\Byte1024ClassesGenerator.cs" />
-    <Compile Include="Generators\Units\ContextWithCastByPowerBuilder.cs" />
-    <Compile Include="Generators\Units\CubicMetreClassesGenerator.cs" />
-    <Compile Include="Generators\Engine\ContextWithCastByPower.cs" />
-    <Compile Include="Generators\Engine\IContext.cs" />
-    <Compile Include="Generators\BuildersCollection\ContextBuilderCollection.cs" />
-    <Compile Include="Generators\BuildersCollection\ContextWithCastByPowerBuilderCollection.cs" />
-    <Compile Include="Generators\BuildersCollection\ContextWithCastByRatioBuilderCollection.cs" />
-    <Compile Include="Generators\Builders\CastByPowerCodeClassBuilder.cs" />
-    <Compile Include="Generators\Builders\CastByPowerTestClassBuilder.cs" />
-    <Compile Include="Generators\Units\GramClassesGenerator.cs" />
-    <Compile Include="Generators\Units\HertzClassesGenerator.cs" />
-    <Compile Include="Generators\Units\ImperialLengthClassesGenerator.cs" />
-    <Compile Include="Generators\Units\JouleClassesGenerator.cs" />
-    <Compile Include="Generators\Units\LitreClassesGenerator.cs" />
-    <Compile Include="Generators\Units\MetreClassesGenerator.cs" />
-    <Compile Include="Generators\Units\AbstractMetricClassesGenerator.cs" />
-    <Compile Include="Generators\Units\PercentageGenerator.cs" />
-    <Compile Include="Generators\Units\SquareMetreClassesGenerator.cs" />
-    <Compile Include="Generators\Units\TemperatureClassesGenerator.cs" />
-    <Compile Include="Generators\Templates\CodeClassTemplate.cs">
+    <Compile Include="GeneratorsCurrency\Templates\CodeClassTemplate.cs">
+      <DependentUpon>CodeClassTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="GeneratorsUnit\Templates\CodeClassTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CodeClassTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Generators\Templates\TestClassTemplate_Partial.cs" />
-    <Compile Include="Generators\Templates\CodeClassTemplate_Partial.cs" />
-    <Compile Include="Generators\Templates\TestClassTemplate.cs">
+    <Compile Include="GeneratorsCurrency\Templates\CodeClassTemplate_Partial.cs" />
+    <Compile Include="GeneratorsUnit\BitClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\Byte1000ClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\Byte1024ClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\ContextWithCastByPowerBuilder.cs" />
+    <Compile Include="GeneratorsUnit\CubicMetreClassesGenerator.cs" />
+    <Compile Include="Engine\ContextWithCastByPower.cs" />
+    <Compile Include="Engine\IContext.cs" />
+    <Compile Include="GeneratorsUnit\Builders\ClassesBuilder.cs" />
+    <Compile Include="GeneratorsUnit\Builders\ClassesWithCastByPowerBuilder.cs" />
+    <Compile Include="GeneratorsUnit\Builders\ClassesWithCastByRatioBuilder.cs" />
+    <Compile Include="GeneratorsUnit\Builders\CastByPowerCodeClassBuilder.cs" />
+    <Compile Include="GeneratorsUnit\Builders\CastByPowerTestClassBuilder.cs" />
+    <Compile Include="GeneratorsCurrency\CurrencyGenerator.cs" />
+    <Compile Include="GeneratorsUnit\GramClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\HertzClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\ImperialLengthClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\JouleClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\LitreClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\MetreClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\AbstractMetricClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\PercentageGenerator.cs" />
+    <Compile Include="GeneratorsUnit\SquareMetreClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\TemperatureClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\Templates\TestClassTemplate_Partial.cs" />
+    <Compile Include="GeneratorsUnit\Templates\CodeClassTemplate_Partial.cs" />
+    <Compile Include="GeneratorsUnit\Templates\TestClassTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TestClassTemplate.tt</DependentUpon>
@@ -93,15 +109,15 @@
     <Compile Include="Common\FullQualifiedClass.cs" />
     <Compile Include="Common\NamespaceCollection.cs" />
     <Compile Include="Common\NamespaceDefinition.cs" />
-    <Compile Include="Generators\Units\AngleClassesGenerator.cs" />
-    <Compile Include="Generators\Engine\ContextWithCastByRatio.cs" />
-    <Compile Include="Generators\Builders\CastByRatioCodeClassBuilder.cs" />
-    <Compile Include="Generators\Builders\CastByRatioTestClassBuilder.cs" />
-    <Compile Include="Generators\Engine\Context.cs" />
-    <Compile Include="Generators\Builders\MainCodeClassBuilder.cs" />
-    <Compile Include="Generators\Builders\MainTestClassBuilder.cs" />
-    <Compile Include="Generators\Units\TimeClassesGenerator.cs" />
-    <Compile Include="Generators\Units\WattClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\AngleClassesGenerator.cs" />
+    <Compile Include="Engine\ContextWithCastByRatio.cs" />
+    <Compile Include="GeneratorsUnit\Builders\CastByRatioCodeClassBuilder.cs" />
+    <Compile Include="GeneratorsUnit\Builders\CastByRatioTestClassBuilder.cs" />
+    <Compile Include="Engine\Context.cs" />
+    <Compile Include="GeneratorsUnit\Builders\CodeClassBuilder.cs" />
+    <Compile Include="GeneratorsUnit\Builders\TestClassBuilder.cs" />
+    <Compile Include="GeneratorsUnit\TimeClassesGenerator.cs" />
+    <Compile Include="GeneratorsUnit\WattClassesGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.Designer.cs">
@@ -118,11 +134,19 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Generators\Templates\CodeClassTemplate.tt">
+    <Content Include="GeneratorsCurrency\Templates\CodeClassTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>CodeClassTemplate.cs</LastGenOutput>
     </Content>
-    <Content Include="Generators\Templates\TestClassTemplate.tt">
+    <Content Include="GeneratorsCurrency\Templates\TestClassTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestClassTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="GeneratorsUnit\Templates\CodeClassTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CodeClassTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="GeneratorsUnit\Templates\TestClassTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TestClassTemplate.cs</LastGenOutput>
     </Content>

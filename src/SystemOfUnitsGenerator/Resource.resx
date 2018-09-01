@@ -182,4 +182,12 @@
     <comment>Cubic Metre Namespace
 </comment>
   </data>
+  <data name="NamespaceCurrency" xml:space="preserve">
+    <value>Currency</value>
+    <comment>Currency Namespace</comment>
+  </data>
+  <data name="NamespaceOthers" xml:space="preserve">
+    <value>Others</value>
+    <comment>Others Namespace</comment>
+  </data>
 </root>

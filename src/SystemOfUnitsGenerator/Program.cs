@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SystemOfUnitsGenerator.Common;
 using SystemOfUnitsGenerator.Generators;
-using SystemOfUnitsGenerator.Generators.Units;
+using SystemOfUnitsGenerator.GeneratorsCurrency;
+using SystemOfUnitsGenerator.GeneratorsUnit;
 
 namespace SystemOfUnitsGenerator {
     internal class Program {
@@ -45,6 +46,8 @@ namespace SystemOfUnitsGenerator {
             yield return new Byte1024ClassesGenerator();
 
             yield return new PercentageGenerator();
+
+            yield return new CurrencyGenerator();
         }
     }
 }

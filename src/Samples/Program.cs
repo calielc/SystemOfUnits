@@ -60,7 +60,7 @@ namespace Samples {
                 var celsius = new Celsius(35);
 
                 foreach (var temperature in new ITemperatureUnit[] { kelvin, fahrenheit, celsius }) {
-                    Console.WriteLine($"{temperature}, as Kelvin: {temperature.ToKelvin()}");
+                    Console.WriteLine($"{temperature}, to Kelvin: {temperature.ToKelvin()}");
                 }
 
                 Console.WriteLine();

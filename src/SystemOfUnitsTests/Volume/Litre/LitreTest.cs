@@ -12,9 +12,9 @@ namespace SystemOfUnitsTests.Volume.Litre {
             Assert.AreEqual("l", Litre.Symbol);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        public static readonly double[] CasesValues = { -7.65d, 0d, 1.757899e2 };
+
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_initialize_instance(double value) {
             var actual = new Litre(value);
 
@@ -22,18 +22,14 @@ namespace SystemOfUnitsTests.Volume.Litre {
             Assert.AreEqual(value, actual.Value, nameof(actual.Value));
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_have_a_symbol(double value) {
             IUnit actual = new Litre(value);
 
             Assert.AreEqual(Litre.Symbol, actual.Symbol);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_clone(double value) {
             var expected = new Litre(value);
 
@@ -43,9 +39,7 @@ namespace SystemOfUnitsTests.Volume.Litre {
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_cast_from_double(double value) {
             var expected = new Litre(value);
 
@@ -54,9 +48,7 @@ namespace SystemOfUnitsTests.Volume.Litre {
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_cast_to_double(double value) {
             var instance = new Litre(value);
 
@@ -65,9 +57,7 @@ namespace SystemOfUnitsTests.Volume.Litre {
             Assert.AreEqual(value, actual);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_compare_with_same_value(double value) {
             var baseInstance = new Litre(value);
             var otherInstance = new Litre(value);
@@ -140,9 +130,7 @@ namespace SystemOfUnitsTests.Volume.Litre {
             Assert.IsFalse(baseInstance >= biggerInstance, ">=");
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_compare_with_null_instance(double value) {
             var instance = new Litre(value);
 
@@ -150,9 +138,7 @@ namespace SystemOfUnitsTests.Volume.Litre {
             Assert.AreEqual(1, instance.CompareTo(null), "CompareTo");
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_compare_with_another_type_of_instance(double value) {
             var instance1 = new Litre(value);
             object instance2 = value;
@@ -253,9 +239,7 @@ namespace SystemOfUnitsTests.Volume.Litre {
             Assert.AreEqual(expectedValue, actual.Value);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_convert_to_string(double value) {
             var expected = $"{value:e} l";
 
@@ -279,9 +263,7 @@ namespace SystemOfUnitsTests.Volume.Litre {
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(-7.65d)]
-        [TestCase(0d)]
-        [TestCase(1.757899e2)]
+        [TestCaseSource(nameof(CasesValues))]
         public void Should_own_a_HashCode(double value) {
             var expected = value.GetHashCode();
 

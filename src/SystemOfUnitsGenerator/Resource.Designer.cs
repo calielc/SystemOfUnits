@@ -106,6 +106,15 @@ namespace SystemOfUnitsGenerator {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Currency.
+        /// </summary>
+        internal static string NamespaceCurrency {
+            get {
+                return ResourceManager.GetString("NamespaceCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mass.Gram.
         /// </summary>
         internal static string NamespaceGram {
@@ -156,6 +165,15 @@ namespace SystemOfUnitsGenerator {
         internal static string NamespaceMetre {
             get {
                 return ResourceManager.GetString("NamespaceMetre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Others.
+        /// </summary>
+        internal static string NamespaceOthers {
+            get {
+                return ResourceManager.GetString("NamespaceOthers", resourceCulture);
             }
         }
         

@@ -6,11 +6,6 @@ using SystemOfUnitsGenerator.GeneratorsUnit.Builders;
 
 namespace SystemOfUnitsGenerator.GeneratorsUnit {
     internal sealed class SquareMetreClassesGenerator : IGenerator {
-        private static readonly NamespaceDefinition NamespaceUnit = Resource.NamespaceSquareMetre;
-
-        private static readonly NamespaceDefinition NamespaceCode = NamespaceDefinition.SystemOfUnits + NamespaceUnit;
-        private static readonly NamespaceDefinition NamespaceTest = NamespaceDefinition.SystemOfUnitsTests + NamespaceUnit;
-
         public IContentFileBuilderCollection Generate() {
             var contexts = BuildContexts();
 
@@ -20,27 +15,26 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
         public IReadOnlyCollection<ContextWithCastByPower> BuildContexts() {
             var builder = new ContextWithCastByPowerBuilder(10);
 
+            var namespaces = new UnitNamespaces(Resource.NamespaceSquareMetre);
+            builder.Add(+36, namespaces + new UnitDefinition("square exametre", "Em²"));
+            builder.Add(+30, namespaces + new UnitDefinition("square petametre", "Pm²"));
+            builder.Add(+24, namespaces + new UnitDefinition("square terametre", "Tm²"));
+            builder.Add(+18, namespaces + new UnitDefinition("square gigametre", "Gm²"));
+            builder.Add(+12, namespaces + new UnitDefinition("square megametre", "Mm²"));
+            builder.Add(+06, namespaces + new UnitDefinition("square kilometre", "km²"));
+            builder.Add(+04, namespaces + new UnitDefinition("square hectometre", "hm²"));
+            builder.Add(+02, namespaces + new UnitDefinition("square decametre", "dam²"));
+            builder.Add(000, namespaces + new UnitDefinition("square metre", "m²"));
+            builder.Add(-02, namespaces + new UnitDefinition("square decimetre", "dm²"));
+            builder.Add(-04, namespaces + new UnitDefinition("square centimetre", "cm²"));
+            builder.Add(-06, namespaces + new UnitDefinition("square millimetre", "mm²"));
+            builder.Add(-12, namespaces + new UnitDefinition("square micrometre", "μm²"));
+            builder.Add(-18, namespaces + new UnitDefinition("square nanometre", "nm²"));
+            builder.Add(-24, namespaces + new UnitDefinition("square picometre", "pm²"));
+            builder.Add(-30, namespaces + new UnitDefinition("square femtometre", "fm²"));
+            builder.Add(-36, namespaces + new UnitDefinition("square attometre", "am²"));
 
-            builder.Add(+36, new Context(NamespaceCode, NamespaceTest, "square exametre", "Em²"));
-            builder.Add(+30, new Context(NamespaceCode, NamespaceTest, "square petametre", "Pm²"));
-            builder.Add(+24, new Context(NamespaceCode, NamespaceTest, "square terametre", "Tm²"));
-            builder.Add(+18, new Context(NamespaceCode, NamespaceTest, "square gigametre", "Gm²"));
-            builder.Add(+12, new Context(NamespaceCode, NamespaceTest, "square megametre", "Mm²"));
-            builder.Add(+06, new Context(NamespaceCode, NamespaceTest, "square kilometre", "km²"));
-            builder.Add(+04, new Context(NamespaceCode, NamespaceTest, "square hectometre", "hm²"));
-            builder.Add(+02, new Context(NamespaceCode, NamespaceTest, "square decametre", "dam²"));
-            builder.Add(000, new Context(NamespaceCode, NamespaceTest, "square metre", "m²"));
-            builder.Add(-02, new Context(NamespaceCode, NamespaceTest, "square decimetre", "dm²"));
-            builder.Add(-04, new Context(NamespaceCode, NamespaceTest, "square centimetre", "cm²"));
-            builder.Add(-06, new Context(NamespaceCode, NamespaceTest, "square millimetre", "mm²"));
-            builder.Add(-12, new Context(NamespaceCode, NamespaceTest, "square micrometre", "μm²"));
-            builder.Add(-18, new Context(NamespaceCode, NamespaceTest, "square nanometre", "nm²"));
-            builder.Add(-24, new Context(NamespaceCode, NamespaceTest, "square picometre", "pm²"));
-            builder.Add(-30, new Context(NamespaceCode, NamespaceTest, "square femtometre", "fm²"));
-            builder.Add(-36, new Context(NamespaceCode, NamespaceTest, "square attometre", "am²"));
-
-            builder.TestCases = new[]
-            {
+            builder.TestCases = new[] {
                 //           Em,      Pm,      Tm,      Gm,      Mm,     km,     hm,    dam,      m,      dm,      cm,      mm,       um,       nm,       pm,       fm,       am
                 //       10e+36,  10e+30,  10e+24,  10e+18,  10e+12,  10e+6,  10e+4,  10e+2,   10e0,   10e-2,   10e-4,   10e-6,   10e-12,   10e-18,   10e-24,   10e-30,   10e-36
                 new[] {      0d,      0d,      0d,      0d,      0d,     0d,     0d,     0d,     0d,      0d,      0d,      0d,       0d,       0d,       0d,       0d,       0d },

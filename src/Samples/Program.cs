@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using SystemOfUnits.Angle;
 using SystemOfUnits.DigitalInformation.Bit;
 using SystemOfUnits.DigitalInformation.Byte;
+using SystemOfUnits.DigitalInformation.Pixel;
 using SystemOfUnits.Length.Imperial;
 using SystemOfUnits.Length.Metre;
 using SystemOfUnits.Others;
@@ -21,6 +22,17 @@ namespace Samples {
                 var kilobyte = (Kilobyte)bytes;
                 var kibibyte = (Kibibyte)bytes;
                 var yottabyte = (Yottabyte)bytes;
+            }
+
+            {
+                var width = (Pixel)2048;
+                var height = (Pixel)1536;
+
+                var totalPixels = (Pixel)(width.Value * height.Value);
+                var bytesPerPixel = (SystemOfUnits.DigitalInformation.Byte.Byte)3;
+
+                var fileSize = (Mebibyte)bytesPerPixel * totalPixels.Value;
+                var imageSize = ((Megapixel)totalPixels).Round(1);
             }
 
             {

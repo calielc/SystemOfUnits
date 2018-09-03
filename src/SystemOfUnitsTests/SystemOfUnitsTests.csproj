@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SystemOfUnitsTests</RootNamespace>
     <AssemblyName>SystemOfUnitsTests</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
@@ -156,6 +156,10 @@
     <Compile Include="DigitalInformation\Byte\ZebibyteTest_Casting1024.cs" />
     <Compile Include="DigitalInformation\Byte\ZettabyteTest.cs" />
     <Compile Include="DigitalInformation\Byte\ZettabyteTest_Casting1000.cs" />
+    <Compile Include="DigitalInformation\Pixel\MegapixelTest.cs" />
+    <Compile Include="DigitalInformation\Pixel\MegapixelTest_Casting.cs" />
+    <Compile Include="DigitalInformation\Pixel\PixelTest.cs" />
+    <Compile Include="DigitalInformation\Pixel\PixelTest_Casting.cs" />
     <Compile Include="Energy\Joule\CentijouleTest.cs" />
     <Compile Include="Energy\Joule\CentijouleTest_Casting.cs" />
     <Compile Include="Energy\Joule\DecajouleTest.cs" />

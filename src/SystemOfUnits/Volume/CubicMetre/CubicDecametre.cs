@@ -12,23 +12,32 @@ namespace SystemOfUnits.Volume.CubicMetre {
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} dam³")]
-    public readonly partial struct CubicDecametre : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<CubicDecametre>,
-        IComparable,
-        IComparable<CubicDecametre> {
+    public readonly partial struct CubicDecametre : IUnit, IEquatable<CubicDecametre>, IComparable<CubicDecametre> {
+        private readonly double _value;
+
         public const string Symbol = "dam³";
 
         public CubicDecametre(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(CubicDecametre other) => Math.Abs(Value - other.Value) < 1e-6;
+        public CubicDecametre Ceiling() => new CubicDecametre(Math.Ceiling(_value));
 
-        public int CompareTo(CubicDecametre other) => Value.CompareTo(other.Value);
+        public CubicDecametre Round() => new CubicDecametre(Math.Round(_value));
+        public CubicDecametre Round(int digits) => new CubicDecametre(Math.Round(_value, digits));
+        public CubicDecametre Round(MidpointRounding mode) => new CubicDecametre(Math.Round(_value, mode));
+
+        public CubicDecametre Floor() => new CubicDecametre(Math.Floor(_value));
+
+        public CubicDecametre Truncate() => new CubicDecametre(Math.Truncate(_value));
+
+        public CubicDecametre Abs() => new CubicDecametre(Math.Abs(_value));
+
+        public bool Equals(CubicDecametre other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(CubicDecametre other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -44,7 +53,7 @@ namespace SystemOfUnits.Volume.CubicMetre {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} dam³", Value, formatProvider);
+            => string.Format(format ?? "{0} dam³", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -53,13 +62,11 @@ namespace SystemOfUnits.Volume.CubicMetre {
             return obj is CubicDecametre other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} dam³";
+        public override string ToString() => $"{_value:e} dam³";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new CubicDecametre(Value);
 
         public static bool operator ==(CubicDecametre self, CubicDecametre other) => self.Equals(other);
         public static bool operator !=(CubicDecametre self, CubicDecametre other) => !self.Equals(other);
@@ -69,15 +76,15 @@ namespace SystemOfUnits.Volume.CubicMetre {
         public static bool operator <=(CubicDecametre self, CubicDecametre other) => self.CompareTo(other) <= 0;
         public static bool operator >=(CubicDecametre self, CubicDecametre other) => self.CompareTo(other) >= 0;
 
-        public static CubicDecametre operator +(CubicDecametre self, CubicDecametre other) => new CubicDecametre(self.Value + other.Value);
-        public static CubicDecametre operator -(CubicDecametre self, CubicDecametre other) => new CubicDecametre(self.Value - other.Value);
+        public static CubicDecametre operator +(CubicDecametre self, CubicDecametre other) => new CubicDecametre(self._value + other._value);
+        public static CubicDecametre operator -(CubicDecametre self, CubicDecametre other) => new CubicDecametre(self._value - other._value);
 
-        public static CubicDecametre operator *(CubicDecametre self, double other) => new CubicDecametre(self.Value * other);
-        public static CubicDecametre operator *(double self, CubicDecametre other) => new CubicDecametre(self * other.Value);
+        public static CubicDecametre operator *(CubicDecametre self, double other) => new CubicDecametre(self._value * other);
+        public static CubicDecametre operator *(double self, CubicDecametre other) => new CubicDecametre(self * other._value);
 
-        public static CubicDecametre operator /(CubicDecametre self, double other) => new CubicDecametre(self.Value / other);
+        public static CubicDecametre operator /(CubicDecametre self, double other) => new CubicDecametre(self._value / other);
 
-        public static explicit operator double(CubicDecametre self) => self.Value;
+        public static explicit operator double(CubicDecametre self) => self._value;
         public static explicit operator CubicDecametre(double self) => new CubicDecametre(self);
     }
 }

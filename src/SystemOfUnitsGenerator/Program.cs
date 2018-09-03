@@ -44,6 +44,7 @@ namespace SystemOfUnitsGenerator {
             yield return new BitClassesGenerator();
             yield return new Byte1000ClassesGenerator();
             yield return new Byte1024ClassesGenerator();
+            yield return new PixelClassesGenerator();
 
             yield return new PercentageGenerator();
 

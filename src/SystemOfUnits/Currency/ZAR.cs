@@ -9,23 +9,32 @@ namespace SystemOfUnits.Currency {
     [Serializable]
     [JsonConverter(typeof(CurrencyJsonConverter ))]
     [DebuggerDisplay("R {Value}")]
-    public readonly partial struct ZAR : ICurrency, 
-        IFormattable,
-        ICloneable,
-        IEquatable<ZAR>,
-        IComparable,
-        IComparable<ZAR> {
+    public readonly partial struct ZAR : ICurrency, IEquatable<ZAR>, IComparable<ZAR> {
+        private readonly decimal _value;
+
         public const string Symbol = "R";
 
         public ZAR(decimal value) {
-            Value = value;
+            _value = value;
         }
 
-        public decimal Value { get; }
+        public decimal Value => _value;
 
-        public bool Equals(ZAR other) => Value == other.Value;
+        public ZAR Ceiling() => new ZAR(Math.Ceiling(_value));
 
-        public int CompareTo(ZAR other) => Value.CompareTo(other.Value);
+        public ZAR Round() => new ZAR(Math.Round(_value));
+        public ZAR Round(int digits) => new ZAR(Math.Round(_value, digits));
+        public ZAR Round(MidpointRounding mode) => new ZAR(Math.Round(_value, mode));
+
+        public ZAR Floor() => new ZAR(Math.Floor(_value));
+
+        public ZAR Truncate() => new ZAR(Math.Truncate(_value));
+
+        public ZAR Abs() => new ZAR(Math.Abs(_value));
+
+        public bool Equals(ZAR other) => this._value == other._value;
+
+        public int CompareTo(ZAR other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -41,7 +50,7 @@ namespace SystemOfUnits.Currency {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "R {0}", Value, formatProvider);
+            => string.Format(format ?? "R {0}", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -50,13 +59,11 @@ namespace SystemOfUnits.Currency {
             return obj is ZAR other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"R {Value:0.00}";
+        public override string ToString() => $"R {_value:#,##0.00}";
 
         string ICurrency.Symbol => Symbol;
-
-        object ICloneable.Clone() => new ZAR(Value);
 
         public static bool operator ==(ZAR self, ZAR other) => self.Equals(other);
         public static bool operator !=(ZAR self, ZAR other) => !self.Equals(other);
@@ -66,15 +73,15 @@ namespace SystemOfUnits.Currency {
         public static bool operator <=(ZAR self, ZAR other) => self.CompareTo(other) <= 0;
         public static bool operator >=(ZAR self, ZAR other) => self.CompareTo(other) >= 0;
 
-        public static ZAR operator +(ZAR self, ZAR other) => new ZAR(self.Value + other.Value);
-        public static ZAR operator -(ZAR self, ZAR other) => new ZAR(self.Value - other.Value);
+        public static ZAR operator +(ZAR self, ZAR other) => new ZAR(self._value + other._value);
+        public static ZAR operator -(ZAR self, ZAR other) => new ZAR(self._value - other._value);
 
-        public static ZAR operator *(ZAR self, decimal other) => new ZAR(self.Value * other);
-        public static ZAR operator *(decimal self, ZAR other) => new ZAR(self * other.Value);
+        public static ZAR operator *(ZAR self, decimal other) => new ZAR(self._value * other);
+        public static ZAR operator *(decimal self, ZAR other) => new ZAR(self * other._value);
 
-        public static ZAR operator /(ZAR self, decimal other) => new ZAR(self.Value / other);
+        public static ZAR operator /(ZAR self, decimal other) => new ZAR(self._value / other);
 
-        public static explicit operator decimal(ZAR self) => self.Value;
+        public static explicit operator decimal(ZAR self) => self._value;
         public static explicit operator ZAR(decimal self) => new ZAR(self);
     }
 }

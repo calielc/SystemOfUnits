@@ -1,34 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using SystemOfUnitsGenerator.Common;
 
 namespace SystemOfUnitsGenerator.Engine {
     [DebuggerDisplay("{Name} ({Symbol})")]
-    internal struct ContextWithCastByRatio : IContext {
-        public ContextWithCastByRatio(IContext context, CastRatio ratio, IEnumerable<CastRatioTestCase> testCases) {
-            Name = context.Name;
-            Symbol = context.Symbol;
-
-            XmlDoc = context.XmlDoc;
-
-            CodeClass = context.CodeClass;
-            TestClass = context.TestClass;
-
+    internal sealed class ContextWithCastByRatio : Context {
+        public ContextWithCastByRatio(IContext context, CastRatio ratio, IEnumerable<CastRatioTestCase> testCases) : base(context) {
             Ratio = ratio;
-
             TestCases = testCases;
         }
 
-        public string Name { get; }
-        public string Symbol { get; }
-
-        public XmlDoc XmlDoc { get; }
-
-        public FullQualifiedClass CodeClass { get; }
-        public FullQualifiedClass TestClass { get; }
-
         public CastRatio Ratio { get; }
-
         public IEnumerable<CastRatioTestCase> TestCases { get; }
     }
 

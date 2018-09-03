@@ -9,23 +9,32 @@ namespace SystemOfUnits.Currency {
     [Serializable]
     [JsonConverter(typeof(CurrencyJsonConverter ))]
     [DebuggerDisplay("kr {Value}")]
-    public readonly partial struct SEK : ICurrency, 
-        IFormattable,
-        ICloneable,
-        IEquatable<SEK>,
-        IComparable,
-        IComparable<SEK> {
+    public readonly partial struct SEK : ICurrency, IEquatable<SEK>, IComparable<SEK> {
+        private readonly decimal _value;
+
         public const string Symbol = "kr";
 
         public SEK(decimal value) {
-            Value = value;
+            _value = value;
         }
 
-        public decimal Value { get; }
+        public decimal Value => _value;
 
-        public bool Equals(SEK other) => Value == other.Value;
+        public SEK Ceiling() => new SEK(Math.Ceiling(_value));
 
-        public int CompareTo(SEK other) => Value.CompareTo(other.Value);
+        public SEK Round() => new SEK(Math.Round(_value));
+        public SEK Round(int digits) => new SEK(Math.Round(_value, digits));
+        public SEK Round(MidpointRounding mode) => new SEK(Math.Round(_value, mode));
+
+        public SEK Floor() => new SEK(Math.Floor(_value));
+
+        public SEK Truncate() => new SEK(Math.Truncate(_value));
+
+        public SEK Abs() => new SEK(Math.Abs(_value));
+
+        public bool Equals(SEK other) => this._value == other._value;
+
+        public int CompareTo(SEK other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -41,7 +50,7 @@ namespace SystemOfUnits.Currency {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "kr {0}", Value, formatProvider);
+            => string.Format(format ?? "kr {0}", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -50,13 +59,11 @@ namespace SystemOfUnits.Currency {
             return obj is SEK other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"kr {Value:0.00}";
+        public override string ToString() => $"kr {_value:#,##0.00}";
 
         string ICurrency.Symbol => Symbol;
-
-        object ICloneable.Clone() => new SEK(Value);
 
         public static bool operator ==(SEK self, SEK other) => self.Equals(other);
         public static bool operator !=(SEK self, SEK other) => !self.Equals(other);
@@ -66,15 +73,15 @@ namespace SystemOfUnits.Currency {
         public static bool operator <=(SEK self, SEK other) => self.CompareTo(other) <= 0;
         public static bool operator >=(SEK self, SEK other) => self.CompareTo(other) >= 0;
 
-        public static SEK operator +(SEK self, SEK other) => new SEK(self.Value + other.Value);
-        public static SEK operator -(SEK self, SEK other) => new SEK(self.Value - other.Value);
+        public static SEK operator +(SEK self, SEK other) => new SEK(self._value + other._value);
+        public static SEK operator -(SEK self, SEK other) => new SEK(self._value - other._value);
 
-        public static SEK operator *(SEK self, decimal other) => new SEK(self.Value * other);
-        public static SEK operator *(decimal self, SEK other) => new SEK(self * other.Value);
+        public static SEK operator *(SEK self, decimal other) => new SEK(self._value * other);
+        public static SEK operator *(decimal self, SEK other) => new SEK(self * other._value);
 
-        public static SEK operator /(SEK self, decimal other) => new SEK(self.Value / other);
+        public static SEK operator /(SEK self, decimal other) => new SEK(self._value / other);
 
-        public static explicit operator decimal(SEK self) => self.Value;
+        public static explicit operator decimal(SEK self) => self._value;
         public static explicit operator SEK(decimal self) => new SEK(self);
     }
 }

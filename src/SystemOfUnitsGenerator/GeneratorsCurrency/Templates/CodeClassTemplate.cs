@@ -105,54 +105,153 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
             
             #line default
             #line hidden
-            this.Write(" : ICurrency, \r\n        IFormattable,\r\n        ICloneable,\r\n        IEquatable<");
+            this.Write(" : ICurrency, IEquatable<");
+            
+            #line 21 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(">, IComparable<");
+            
+            #line 21 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write("> {\r\n        private readonly decimal _value;\r\n\r\n        public const string Symb" +
+                    "ol = \"");
             
             #line 24 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write(">,\r\n        IComparable,\r\n        IComparable<");
-            
-            #line 26 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write("> {\r\n        public const string Symbol = \"");
-            
-            #line 27 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Symbol));
             
             #line default
             #line hidden
             this.Write("\";\r\n\r\n        public ");
             
-            #line 29 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 26 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
-            this.Write("(decimal value) {\r\n            Value = value;\r\n        }\r\n\r\n        public decima" +
-                    "l Value { get; }\r\n\r\n        public bool Equals(");
+            this.Write("(decimal value) {\r\n            _value = value;\r\n        }\r\n\r\n        public decim" +
+                    "al Value => _value;\r\n\r\n        public ");
+            
+            #line 32 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" Ceiling() => new ");
+            
+            #line 32 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write("(Math.Ceiling(_value));\r\n\r\n        public ");
+            
+            #line 34 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" Round() => new ");
+            
+            #line 34 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write("(Math.Round(_value));\r\n        public ");
             
             #line 35 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
-            this.Write(" other) => Value == other.Value;\r\n\r\n        public int CompareTo(");
+            this.Write(" Round(int digits) => new ");
             
-            #line 37 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 35 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
-            this.Write(" other) => Value.CompareTo(other.Value);\r\n\r\n        public int CompareTo(object o" +
-                    "bj) {\r\n            switch (obj) {\r\n                case null:\r\n                 " +
-                    "   return 1;\r\n\r\n                case ");
+            this.Write("(Math.Round(_value, digits));\r\n        public ");
+            
+            #line 36 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" Round(MidpointRounding mode) => new ");
+            
+            #line 36 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write("(Math.Round(_value, mode));\r\n\r\n        public ");
+            
+            #line 38 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" Floor() => new ");
+            
+            #line 38 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write("(Math.Floor(_value));\r\n\r\n        public ");
+            
+            #line 40 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" Truncate() => new ");
+            
+            #line 40 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write("(Math.Truncate(_value));\r\n\r\n        public ");
+            
+            #line 42 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" Abs() => new ");
+            
+            #line 42 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write("(Math.Abs(_value));\r\n\r\n        public bool Equals(");
             
             #line 44 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" other) => this._value == other._value;\r\n\r\n        public int CompareTo(");
+            
+            #line 46 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" other) => this._value.CompareTo(other._value);\r\n\r\n        public int CompareTo(o" +
+                    "bject obj) {\r\n            switch (obj) {\r\n                case null:\r\n          " +
+                    "          return 1;\r\n\r\n                case ");
+            
+            #line 53 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
@@ -161,7 +260,7 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
                     "\r\n                    throw new ArgumentException($\"Object must be of type {name" +
                     "of(");
             
-            #line 48 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 57 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
@@ -169,256 +268,249 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
             this.Write(")}\");\r\n            }\r\n        }\r\n\r\n        public string ToString(string format, " +
                     "IFormatProvider formatProvider)\r\n            => string.Format(format ?? \"");
             
-            #line 53 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 62 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Symbol));
             
             #line default
             #line hidden
-            this.Write(" {0}\", Value, formatProvider);\r\n\r\n        public override bool Equals(object obj)" +
-                    " {\r\n            if (obj is null) {\r\n                return false;\r\n            }" +
-                    "\r\n            return obj is ");
-            
-            #line 59 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write(" other && Equals(other);\r\n        }\r\n\r\n        public override int GetHashCode() " +
-                    "=> Value.GetHashCode();\r\n\r\n        public override string ToString() => $\"");
-            
-            #line 64 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Symbol));
-            
-            #line default
-            #line hidden
-            this.Write(" {Value:0.00}\";\r\n\r\n        string ICurrency.Symbol => Symbol;\r\n\r\n        object I" +
-                    "Cloneable.Clone() => new ");
+            this.Write(" {0}\", _value, formatProvider);\r\n\r\n        public override bool Equals(object obj" +
+                    ") {\r\n            if (obj is null) {\r\n                return false;\r\n            " +
+                    "}\r\n            return obj is ");
             
             #line 68 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
-            this.Write("(Value);\r\n\r\n        public static bool operator ==(");
+            this.Write(" other && Equals(other);\r\n        }\r\n\r\n        public override int GetHashCode() " +
+                    "=> _value.GetHashCode();\r\n\r\n        public override string ToString() => $\"");
             
-            #line 70 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 73 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Symbol));
+            
+            #line default
+            #line hidden
+            this.Write(" {_value:#,##0.00}\";\r\n\r\n        string ICurrency.Symbol => Symbol;\r\n\r\n        pub" +
+                    "lic static bool operator ==(");
+            
+            #line 77 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" self, ");
             
-            #line 70 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 77 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" other) => self.Equals(other);\r\n        public static bool operator !=(");
             
-            #line 71 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 78 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" self, ");
             
-            #line 71 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 78 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" other) => !self.Equals(other);\r\n\r\n        public static bool operator <(");
             
-            #line 73 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 80 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" self, ");
             
-            #line 73 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 80 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" other) => self.CompareTo(other) < 0;\r\n        public static bool operator >(");
             
-            #line 74 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 81 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" self, ");
             
-            #line 74 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 81 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" other) => self.CompareTo(other) > 0;\r\n        public static bool operator <=(");
             
-            #line 75 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 82 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" self, ");
             
-            #line 75 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 82 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" other) => self.CompareTo(other) <= 0;\r\n        public static bool operator >=(");
             
-            #line 76 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 83 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" self, ");
             
-            #line 76 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 83 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" other) => self.CompareTo(other) >= 0;\r\n\r\n        public static ");
             
-            #line 78 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 85 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" operator +(");
             
-            #line 78 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 85 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" self, ");
             
-            #line 78 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 85 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" other) => new ");
             
-            #line 78 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 85 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
-            this.Write("(self.Value + other.Value);\r\n        public static ");
-            
-            #line 79 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write(" operator -(");
-            
-            #line 79 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write(" self, ");
-            
-            #line 79 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write(" other) => new ");
-            
-            #line 79 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write("(self.Value - other.Value);\r\n\r\n        public static ");
-            
-            #line 81 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write(" operator *(");
-            
-            #line 81 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write(" self, decimal other) => new ");
-            
-            #line 81 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write("(self.Value * other);\r\n        public static ");
-            
-            #line 82 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write(" operator *(decimal self, ");
-            
-            #line 82 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write(" other) => new ");
-            
-            #line 82 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write("(self * other.Value);\r\n\r\n        public static ");
-            
-            #line 84 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write(" operator /(");
-            
-            #line 84 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write(" self, decimal other) => new ");
-            
-            #line 84 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write("(self.Value / other);\r\n\r\n        public static explicit operator decimal(");
+            this.Write("(self._value + other._value);\r\n        public static ");
             
             #line 86 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
-            this.Write(" self) => self.Value;\r\n        public static explicit operator ");
+            this.Write(" operator -(");
             
-            #line 87 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 86 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" self, ");
+            
+            #line 86 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" other) => new ");
+            
+            #line 86 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write("(self._value - other._value);\r\n\r\n        public static ");
+            
+            #line 88 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" operator *(");
+            
+            #line 88 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" self, decimal other) => new ");
+            
+            #line 88 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write("(self._value * other);\r\n        public static ");
+            
+            #line 89 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" operator *(decimal self, ");
+            
+            #line 89 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" other) => new ");
+            
+            #line 89 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write("(self * other._value);\r\n\r\n        public static ");
+            
+            #line 91 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" operator /(");
+            
+            #line 91 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" self, decimal other) => new ");
+            
+            #line 91 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write("(self._value / other);\r\n\r\n        public static explicit operator decimal(");
+            
+            #line 93 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write(" self) => self._value;\r\n        public static explicit operator ");
+            
+            #line 94 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write("(decimal self) => new ");
             
-            #line 87 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
+            #line 94 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\CodeClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default

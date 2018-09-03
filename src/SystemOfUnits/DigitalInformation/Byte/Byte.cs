@@ -11,23 +11,32 @@ namespace SystemOfUnits.DigitalInformation.Byte {
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} B")]
-    public readonly partial struct Byte : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<Byte>,
-        IComparable,
-        IComparable<Byte> {
+    public readonly partial struct Byte : IUnit, IEquatable<Byte>, IComparable<Byte> {
+        private readonly double _value;
+
         public const string Symbol = "B";
 
         public Byte(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(Byte other) => Math.Abs(Value - other.Value) < 1e-6;
+        public Byte Ceiling() => new Byte(Math.Ceiling(_value));
 
-        public int CompareTo(Byte other) => Value.CompareTo(other.Value);
+        public Byte Round() => new Byte(Math.Round(_value));
+        public Byte Round(int digits) => new Byte(Math.Round(_value, digits));
+        public Byte Round(MidpointRounding mode) => new Byte(Math.Round(_value, mode));
+
+        public Byte Floor() => new Byte(Math.Floor(_value));
+
+        public Byte Truncate() => new Byte(Math.Truncate(_value));
+
+        public Byte Abs() => new Byte(Math.Abs(_value));
+
+        public bool Equals(Byte other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(Byte other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -43,7 +52,7 @@ namespace SystemOfUnits.DigitalInformation.Byte {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} B", Value, formatProvider);
+            => string.Format(format ?? "{0} B", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -52,13 +61,11 @@ namespace SystemOfUnits.DigitalInformation.Byte {
             return obj is Byte other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} B";
+        public override string ToString() => $"{_value:e} B";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new Byte(Value);
 
         public static bool operator ==(Byte self, Byte other) => self.Equals(other);
         public static bool operator !=(Byte self, Byte other) => !self.Equals(other);
@@ -68,15 +75,15 @@ namespace SystemOfUnits.DigitalInformation.Byte {
         public static bool operator <=(Byte self, Byte other) => self.CompareTo(other) <= 0;
         public static bool operator >=(Byte self, Byte other) => self.CompareTo(other) >= 0;
 
-        public static Byte operator +(Byte self, Byte other) => new Byte(self.Value + other.Value);
-        public static Byte operator -(Byte self, Byte other) => new Byte(self.Value - other.Value);
+        public static Byte operator +(Byte self, Byte other) => new Byte(self._value + other._value);
+        public static Byte operator -(Byte self, Byte other) => new Byte(self._value - other._value);
 
-        public static Byte operator *(Byte self, double other) => new Byte(self.Value * other);
-        public static Byte operator *(double self, Byte other) => new Byte(self * other.Value);
+        public static Byte operator *(Byte self, double other) => new Byte(self._value * other);
+        public static Byte operator *(double self, Byte other) => new Byte(self * other._value);
 
-        public static Byte operator /(Byte self, double other) => new Byte(self.Value / other);
+        public static Byte operator /(Byte self, double other) => new Byte(self._value / other);
 
-        public static explicit operator double(Byte self) => self.Value;
+        public static explicit operator double(Byte self) => self._value;
         public static explicit operator Byte(double self) => new Byte(self);
     }
 }

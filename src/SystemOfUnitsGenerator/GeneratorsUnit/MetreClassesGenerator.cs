@@ -6,11 +6,6 @@ using SystemOfUnitsGenerator.GeneratorsUnit.Builders;
 
 namespace SystemOfUnitsGenerator.GeneratorsUnit {
     internal sealed class MetreClassesGenerator : IGenerator {
-        private static readonly NamespaceDefinition NamespaceUnit = Resource.NamespaceMetre;
-
-        private static readonly NamespaceDefinition NamespaceCode = NamespaceDefinition.SystemOfUnits + NamespaceUnit;
-        private static readonly NamespaceDefinition NamespaceTest = NamespaceDefinition.SystemOfUnitsTests + NamespaceUnit;
-
         public IContentFileBuilderCollection Generate() {
             var contexts = BuildContexts();
 
@@ -20,26 +15,26 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
         private static IReadOnlyCollection<ContextWithCastByPower> BuildContexts() {
             var builder = new ContextWithCastByPowerBuilder(10);
 
-            builder.Add(+18, new Context(NamespaceCode, NamespaceTest, "exametre", "Em"));
-            builder.Add(+15, new Context(NamespaceCode, NamespaceTest, "petametre", "Pm"));
-            builder.Add(+12, new Context(NamespaceCode, NamespaceTest, "terametre", "Tm"));
-            builder.Add(+09, new Context(NamespaceCode, NamespaceTest, "gigametre", "Gm"));
-            builder.Add(+06, new Context(NamespaceCode, NamespaceTest, "megametre", "Mm"));
-            builder.Add(+03, new Context(NamespaceCode, NamespaceTest, "kilometre", "km"));
-            builder.Add(+02, new Context(NamespaceCode, NamespaceTest, "hectometre", "hm"));
-            builder.Add(+01, new Context(NamespaceCode, NamespaceTest, "decametre", "dam"));
-            builder.Add(000, new Context(NamespaceCode, NamespaceTest, "metre", "m"));
-            builder.Add(-01, new Context(NamespaceCode, NamespaceTest, "decimetre", "dm"));
-            builder.Add(-02, new Context(NamespaceCode, NamespaceTest, "centimetre", "cm"));
-            builder.Add(-03, new Context(NamespaceCode, NamespaceTest, "millimetre", "mm"));
-            builder.Add(-06, new Context(NamespaceCode, NamespaceTest, "micrometre", "μm"));
-            builder.Add(-09, new Context(NamespaceCode, NamespaceTest, "nanometre", "nm"));
-            builder.Add(-12, new Context(NamespaceCode, NamespaceTest, "picometre", "pm"));
-            builder.Add(-15, new Context(NamespaceCode, NamespaceTest, "femtometre", "fm"));
-            builder.Add(-18, new Context(NamespaceCode, NamespaceTest, "attometre", "am"));
+            var namespaces = new UnitNamespaces(Resource.NamespaceMetre);
+            builder.Add(+18, namespaces + new UnitDefinition("exametre", "Em"));
+            builder.Add(+15, namespaces + new UnitDefinition("petametre", "Pm"));
+            builder.Add(+12, namespaces + new UnitDefinition("terametre", "Tm"));
+            builder.Add(+09, namespaces + new UnitDefinition("gigametre", "Gm"));
+            builder.Add(+06, namespaces + new UnitDefinition("megametre", "Mm"));
+            builder.Add(+03, namespaces + new UnitDefinition("kilometre", "km"));
+            builder.Add(+02, namespaces + new UnitDefinition("hectometre", "hm"));
+            builder.Add(+01, namespaces + new UnitDefinition("decametre", "dam"));
+            builder.Add(000, namespaces + new UnitDefinition("metre", "m"));
+            builder.Add(-01, namespaces + new UnitDefinition("decimetre", "dm"));
+            builder.Add(-02, namespaces + new UnitDefinition("centimetre", "cm"));
+            builder.Add(-03, namespaces + new UnitDefinition("millimetre", "mm"));
+            builder.Add(-06, namespaces + new UnitDefinition("micrometre", "μm"));
+            builder.Add(-09, namespaces + new UnitDefinition("nanometre", "nm"));
+            builder.Add(-12, namespaces + new UnitDefinition("picometre", "pm"));
+            builder.Add(-15, namespaces + new UnitDefinition("femtometre", "fm"));
+            builder.Add(-18, namespaces + new UnitDefinition("attometre", "am"));
 
-            builder.TestCases = new[]
-            { 
+            builder.TestCases = new[] { 
                 //           Em,      Pm,      Tm,     Gm,     Mm,     km,     hm,    dam,      m,      dm,      cm,      mm,      um,      nm,       pm,       fm,       am
                 //       10e+18,  10e+15,  10e+12,  10e+9,  10e+6,  10e+3,  10e+2,  10e+1,   10e0,   10e-1,   10e-2,   10e-3,   10e-6,   10e-9,   10e-12,   10e-15,   10e-18
                 new[] {      0d,      0d,      0d,     0d,     0d,     0d,     0d,     0d,     0d,      0d,      0d,      0d,      0d,      0d,       0d,       0d,       0d },

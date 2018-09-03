@@ -3,26 +3,38 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace SystemOfUnits.Power.Watt {
+    /// <summary>
+    /// Represents a Milliwatt (symbol mW).
+    /// </summary>
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} mW")]
-    public readonly partial struct Milliwatt : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<Milliwatt>,
-        IComparable,
-        IComparable<Milliwatt> {
+    public readonly partial struct Milliwatt : IUnit, IEquatable<Milliwatt>, IComparable<Milliwatt> {
+        private readonly double _value;
+
         public const string Symbol = "mW";
 
         public Milliwatt(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(Milliwatt other) => Math.Abs(Value - other.Value) < 1e-6;
+        public Milliwatt Ceiling() => new Milliwatt(Math.Ceiling(_value));
 
-        public int CompareTo(Milliwatt other) => Value.CompareTo(other.Value);
+        public Milliwatt Round() => new Milliwatt(Math.Round(_value));
+        public Milliwatt Round(int digits) => new Milliwatt(Math.Round(_value, digits));
+        public Milliwatt Round(MidpointRounding mode) => new Milliwatt(Math.Round(_value, mode));
+
+        public Milliwatt Floor() => new Milliwatt(Math.Floor(_value));
+
+        public Milliwatt Truncate() => new Milliwatt(Math.Truncate(_value));
+
+        public Milliwatt Abs() => new Milliwatt(Math.Abs(_value));
+
+        public bool Equals(Milliwatt other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(Milliwatt other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -38,7 +50,7 @@ namespace SystemOfUnits.Power.Watt {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} mW", Value, formatProvider);
+            => string.Format(format ?? "{0} mW", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -47,13 +59,11 @@ namespace SystemOfUnits.Power.Watt {
             return obj is Milliwatt other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} mW";
+        public override string ToString() => $"{_value:e} mW";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new Milliwatt(Value);
 
         public static bool operator ==(Milliwatt self, Milliwatt other) => self.Equals(other);
         public static bool operator !=(Milliwatt self, Milliwatt other) => !self.Equals(other);
@@ -63,15 +73,15 @@ namespace SystemOfUnits.Power.Watt {
         public static bool operator <=(Milliwatt self, Milliwatt other) => self.CompareTo(other) <= 0;
         public static bool operator >=(Milliwatt self, Milliwatt other) => self.CompareTo(other) >= 0;
 
-        public static Milliwatt operator +(Milliwatt self, Milliwatt other) => new Milliwatt(self.Value + other.Value);
-        public static Milliwatt operator -(Milliwatt self, Milliwatt other) => new Milliwatt(self.Value - other.Value);
+        public static Milliwatt operator +(Milliwatt self, Milliwatt other) => new Milliwatt(self._value + other._value);
+        public static Milliwatt operator -(Milliwatt self, Milliwatt other) => new Milliwatt(self._value - other._value);
 
-        public static Milliwatt operator *(Milliwatt self, double other) => new Milliwatt(self.Value * other);
-        public static Milliwatt operator *(double self, Milliwatt other) => new Milliwatt(self * other.Value);
+        public static Milliwatt operator *(Milliwatt self, double other) => new Milliwatt(self._value * other);
+        public static Milliwatt operator *(double self, Milliwatt other) => new Milliwatt(self * other._value);
 
-        public static Milliwatt operator /(Milliwatt self, double other) => new Milliwatt(self.Value / other);
+        public static Milliwatt operator /(Milliwatt self, double other) => new Milliwatt(self._value / other);
 
-        public static explicit operator double(Milliwatt self) => self.Value;
+        public static explicit operator double(Milliwatt self) => self._value;
         public static explicit operator Milliwatt(double self) => new Milliwatt(self);
     }
 }

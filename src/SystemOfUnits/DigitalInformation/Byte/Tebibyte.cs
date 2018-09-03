@@ -12,23 +12,32 @@ namespace SystemOfUnits.DigitalInformation.Byte {
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} TiB")]
-    public readonly partial struct Tebibyte : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<Tebibyte>,
-        IComparable,
-        IComparable<Tebibyte> {
+    public readonly partial struct Tebibyte : IUnit, IEquatable<Tebibyte>, IComparable<Tebibyte> {
+        private readonly double _value;
+
         public const string Symbol = "TiB";
 
         public Tebibyte(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(Tebibyte other) => Math.Abs(Value - other.Value) < 1e-6;
+        public Tebibyte Ceiling() => new Tebibyte(Math.Ceiling(_value));
 
-        public int CompareTo(Tebibyte other) => Value.CompareTo(other.Value);
+        public Tebibyte Round() => new Tebibyte(Math.Round(_value));
+        public Tebibyte Round(int digits) => new Tebibyte(Math.Round(_value, digits));
+        public Tebibyte Round(MidpointRounding mode) => new Tebibyte(Math.Round(_value, mode));
+
+        public Tebibyte Floor() => new Tebibyte(Math.Floor(_value));
+
+        public Tebibyte Truncate() => new Tebibyte(Math.Truncate(_value));
+
+        public Tebibyte Abs() => new Tebibyte(Math.Abs(_value));
+
+        public bool Equals(Tebibyte other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(Tebibyte other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -44,7 +53,7 @@ namespace SystemOfUnits.DigitalInformation.Byte {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} TiB", Value, formatProvider);
+            => string.Format(format ?? "{0} TiB", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -53,13 +62,11 @@ namespace SystemOfUnits.DigitalInformation.Byte {
             return obj is Tebibyte other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} TiB";
+        public override string ToString() => $"{_value:e} TiB";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new Tebibyte(Value);
 
         public static bool operator ==(Tebibyte self, Tebibyte other) => self.Equals(other);
         public static bool operator !=(Tebibyte self, Tebibyte other) => !self.Equals(other);
@@ -69,15 +76,15 @@ namespace SystemOfUnits.DigitalInformation.Byte {
         public static bool operator <=(Tebibyte self, Tebibyte other) => self.CompareTo(other) <= 0;
         public static bool operator >=(Tebibyte self, Tebibyte other) => self.CompareTo(other) >= 0;
 
-        public static Tebibyte operator +(Tebibyte self, Tebibyte other) => new Tebibyte(self.Value + other.Value);
-        public static Tebibyte operator -(Tebibyte self, Tebibyte other) => new Tebibyte(self.Value - other.Value);
+        public static Tebibyte operator +(Tebibyte self, Tebibyte other) => new Tebibyte(self._value + other._value);
+        public static Tebibyte operator -(Tebibyte self, Tebibyte other) => new Tebibyte(self._value - other._value);
 
-        public static Tebibyte operator *(Tebibyte self, double other) => new Tebibyte(self.Value * other);
-        public static Tebibyte operator *(double self, Tebibyte other) => new Tebibyte(self * other.Value);
+        public static Tebibyte operator *(Tebibyte self, double other) => new Tebibyte(self._value * other);
+        public static Tebibyte operator *(double self, Tebibyte other) => new Tebibyte(self * other._value);
 
-        public static Tebibyte operator /(Tebibyte self, double other) => new Tebibyte(self.Value / other);
+        public static Tebibyte operator /(Tebibyte self, double other) => new Tebibyte(self._value / other);
 
-        public static explicit operator double(Tebibyte self) => self.Value;
+        public static explicit operator double(Tebibyte self) => self._value;
         public static explicit operator Tebibyte(double self) => new Tebibyte(self);
     }
 }

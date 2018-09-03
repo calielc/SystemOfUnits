@@ -18,23 +18,32 @@ namespace <#= Namespace #> {
     [Serializable]
     [JsonConverter(typeof(CurrencyJsonConverter ))]
     [DebuggerDisplay("<#= Symbol #> {Value}")]
-    public readonly partial struct <#= ClassName #> : ICurrency, 
-        IFormattable,
-        ICloneable,
-        IEquatable<<#= ClassName #>>,
-        IComparable,
-        IComparable<<#= ClassName #>> {
+    public readonly partial struct <#= ClassName #> : ICurrency, IEquatable<<#= ClassName #>>, IComparable<<#= ClassName #>> {
+        private readonly decimal _value;
+
         public const string Symbol = "<#= Symbol #>";
 
         public <#= ClassName #>(decimal value) {
-            Value = value;
+            _value = value;
         }
 
-        public decimal Value { get; }
+        public decimal Value => _value;
 
-        public bool Equals(<#= ClassName #> other) => Value == other.Value;
+        public <#= ClassName #> Ceiling() => new <#= ClassName #>(Math.Ceiling(_value));
 
-        public int CompareTo(<#= ClassName #> other) => Value.CompareTo(other.Value);
+        public <#= ClassName #> Round() => new <#= ClassName #>(Math.Round(_value));
+        public <#= ClassName #> Round(int digits) => new <#= ClassName #>(Math.Round(_value, digits));
+        public <#= ClassName #> Round(MidpointRounding mode) => new <#= ClassName #>(Math.Round(_value, mode));
+
+        public <#= ClassName #> Floor() => new <#= ClassName #>(Math.Floor(_value));
+
+        public <#= ClassName #> Truncate() => new <#= ClassName #>(Math.Truncate(_value));
+
+        public <#= ClassName #> Abs() => new <#= ClassName #>(Math.Abs(_value));
+
+        public bool Equals(<#= ClassName #> other) => this._value == other._value;
+
+        public int CompareTo(<#= ClassName #> other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -50,7 +59,7 @@ namespace <#= Namespace #> {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "<#= Symbol #> {0}", Value, formatProvider);
+            => string.Format(format ?? "<#= Symbol #> {0}", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -59,13 +68,11 @@ namespace <#= Namespace #> {
             return obj is <#= ClassName #> other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"<#= Symbol #> {Value:0.00}";
+        public override string ToString() => $"<#= Symbol #> {_value:#,##0.00}";
 
         string ICurrency.Symbol => Symbol;
-
-        object ICloneable.Clone() => new <#= ClassName #>(Value);
 
         public static bool operator ==(<#= ClassName #> self, <#= ClassName #> other) => self.Equals(other);
         public static bool operator !=(<#= ClassName #> self, <#= ClassName #> other) => !self.Equals(other);
@@ -75,15 +82,15 @@ namespace <#= Namespace #> {
         public static bool operator <=(<#= ClassName #> self, <#= ClassName #> other) => self.CompareTo(other) <= 0;
         public static bool operator >=(<#= ClassName #> self, <#= ClassName #> other) => self.CompareTo(other) >= 0;
 
-        public static <#= ClassName #> operator +(<#= ClassName #> self, <#= ClassName #> other) => new <#= ClassName #>(self.Value + other.Value);
-        public static <#= ClassName #> operator -(<#= ClassName #> self, <#= ClassName #> other) => new <#= ClassName #>(self.Value - other.Value);
+        public static <#= ClassName #> operator +(<#= ClassName #> self, <#= ClassName #> other) => new <#= ClassName #>(self._value + other._value);
+        public static <#= ClassName #> operator -(<#= ClassName #> self, <#= ClassName #> other) => new <#= ClassName #>(self._value - other._value);
 
-        public static <#= ClassName #> operator *(<#= ClassName #> self, decimal other) => new <#= ClassName #>(self.Value * other);
-        public static <#= ClassName #> operator *(decimal self, <#= ClassName #> other) => new <#= ClassName #>(self * other.Value);
+        public static <#= ClassName #> operator *(<#= ClassName #> self, decimal other) => new <#= ClassName #>(self._value * other);
+        public static <#= ClassName #> operator *(decimal self, <#= ClassName #> other) => new <#= ClassName #>(self * other._value);
 
-        public static <#= ClassName #> operator /(<#= ClassName #> self, decimal other) => new <#= ClassName #>(self.Value / other);
+        public static <#= ClassName #> operator /(<#= ClassName #> self, decimal other) => new <#= ClassName #>(self._value / other);
 
-        public static explicit operator decimal(<#= ClassName #> self) => self.Value;
+        public static explicit operator decimal(<#= ClassName #> self) => self._value;
         public static explicit operator <#= ClassName #>(decimal self) => new <#= ClassName #>(self);
     }
 }

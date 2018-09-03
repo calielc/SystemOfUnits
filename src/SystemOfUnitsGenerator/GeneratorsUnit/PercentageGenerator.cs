@@ -5,13 +5,9 @@ using SystemOfUnitsGenerator.GeneratorsUnit.Builders;
 
 namespace SystemOfUnitsGenerator.GeneratorsUnit {
     internal class PercentageGenerator : IGenerator {
-        private static readonly NamespaceDefinition NamespaceCode = NamespaceDefinition.SystemOfUnits + "Others";
-        private static readonly NamespaceDefinition NamespaceTest = NamespaceDefinition.SystemOfUnitsTests + "Others";
-
         public IContentFileBuilderCollection Generate() {
-            var contexts = new[]
-            {
-                new Context(NamespaceCode, NamespaceTest, "Percentage", "%")
+            var contexts = new[] {
+                new UnitNamespaces(Resource.NamespaceOthers) + new UnitDefinition("Percentage", "%")
             };
 
             return new ClassesBuilder(contexts);

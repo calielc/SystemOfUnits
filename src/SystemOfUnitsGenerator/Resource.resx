@@ -190,4 +190,8 @@
     <value>Others</value>
     <comment>Others Namespace</comment>
   </data>
+  <data name="NamespacePixel" xml:space="preserve">
+    <value>DigitalInformation.Pixel</value>
+    <comment>Pixel Namespace</comment>
+  </data>
 </root>

@@ -8,8 +8,8 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit.Builders {
     internal sealed class ClassesBuilder : IContentFileBuilderCollection {
         private readonly IEnumerable<IContentFileBuilder> _builders;
 
-        public ClassesBuilder(IEnumerable<Context> contexts) {
-            IEnumerable<IContentFileBuilder> Build(Context thisContext) {
+        public ClassesBuilder(IEnumerable<IContext> contexts) {
+            IEnumerable<IContentFileBuilder> Build(IContext thisContext) {
                 yield return new CodeClassBuilder(thisContext);
                 yield return new TestClassBuilder(thisContext);
             }

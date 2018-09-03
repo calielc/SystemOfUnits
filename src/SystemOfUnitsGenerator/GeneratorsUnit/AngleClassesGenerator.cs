@@ -7,11 +7,6 @@ using SystemOfUnitsGenerator.GeneratorsUnit.Builders;
 
 namespace SystemOfUnitsGenerator.GeneratorsUnit {
     internal sealed class AngleClassesGenerator : IGenerator {
-        private static readonly NamespaceDefinition NamespaceUnit = Resource.NamespaceAngle;
-
-        private static readonly NamespaceDefinition NamespaceCode = NamespaceDefinition.SystemOfUnits + NamespaceUnit;
-        private static readonly NamespaceDefinition NamespaceTest = NamespaceDefinition.SystemOfUnitsTests + NamespaceUnit;
-
         public IContentFileBuilderCollection Generate() {
             var contexts = BuildContexts().ToReadOnlyList();
 
@@ -19,11 +14,15 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
         }
 
         private static IEnumerable<ContextWithCastByRatio> BuildContexts() {
+            var namespaces = new UnitNamespaces(Resource.NamespaceAngle);
+
+            var zeroTestCase = new CastRatioTestCase(0d, 0d, 0d);
+            
             yield return new ContextWithCastByRatio(
-                context: new Context(NamespaceCode, NamespaceTest, "Radian", "rad"),
+                context: namespaces + new UnitDefinition("Radian", "rad"),
                 ratio: new CastRatio(1, "1", "RadianRatio"),
                 testCases: new[] {
-                    new CastRatioTestCase(0d, 0d, 0d),
+                    zeroTestCase,
                     new CastRatioTestCase(Math.PI / 6, 1e3 * Math.PI / 6, 30d),
                     new CastRatioTestCase(Math.PI / 4, 1e3 * Math.PI / 4, 45d),
                     new CastRatioTestCase(Math.PI / 3, 1e3 * Math.PI / 3, 60d),
@@ -35,10 +34,10 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
                 });
 
             yield return new ContextWithCastByRatio(
-                context: new Context(NamespaceCode, NamespaceTest, "Milliradian", "mrad"),
+                context: namespaces + new UnitDefinition("Milliradian", "mrad"),
                 ratio: new CastRatio(1e-3, "0.001d", "RadianRatio"),
                 testCases: new[] {
-                    new CastRatioTestCase(0d, 0d, 0d),
+                    zeroTestCase,
                     new CastRatioTestCase(1e3 * Math.PI / 6, Math.PI / 6, 30d),
                     new CastRatioTestCase(1e3 * Math.PI / 4, Math.PI / 4, 45d),
                     new CastRatioTestCase(1e3 * Math.PI / 3, Math.PI / 3, 60d),
@@ -50,10 +49,10 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
                 });
 
             yield return new ContextWithCastByRatio(
-                context: new Context(NamespaceCode, NamespaceTest, "Degree", "°"),
+                context: namespaces + new UnitDefinition("Degree", "°"),
                 ratio: new CastRatio(Math.PI / 180d, "System.Math.PI / 180d", "RadianRatio"),
                 testCases: new[] {
-                    new CastRatioTestCase(0d, 0d, 0d),
+                    zeroTestCase,
                     new CastRatioTestCase(30d, Math.PI / 6, 1e3 * Math.PI / 6),
                     new CastRatioTestCase(45d, Math.PI / 4, 1e3 * Math.PI / 4),
                     new CastRatioTestCase(60d, Math.PI / 3, 1e3 * Math.PI / 3),

@@ -1,33 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using SystemOfUnitsGenerator.Common;
 
 namespace SystemOfUnitsGenerator.Engine {
     [DebuggerDisplay("{Name} ({Symbol})")]
-    internal struct ContextWithCastByPower : IContext {
-        public ContextWithCastByPower(Context context, CastPower power, IEnumerable<CastPowerTestCase> testCases) {
-            Name = context.Name;
-            Symbol = context.Symbol;
-            XmlDoc = context.XmlDoc;
-
-            CodeClass = context.CodeClass;
-            TestClass = context.TestClass;
-
+    internal sealed class ContextWithCastByPower : Context {
+        public ContextWithCastByPower(IContext context, CastPower power, IEnumerable<CastPowerTestCase> testCases) : base(context) {
             Power = power;
-
             TestCases = testCases;
         }
 
-        public string Name { get; }
-        public string Symbol { get; }
-
-        public XmlDoc XmlDoc { get; }
-
-        public FullQualifiedClass CodeClass { get; }
-        public FullQualifiedClass TestClass { get; }
-
         public CastPower Power { get; }
-
         public IEnumerable<CastPowerTestCase> TestCases { get; }
     }
 

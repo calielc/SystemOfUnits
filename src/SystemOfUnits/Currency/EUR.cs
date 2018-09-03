@@ -9,23 +9,32 @@ namespace SystemOfUnits.Currency {
     [Serializable]
     [JsonConverter(typeof(CurrencyJsonConverter ))]
     [DebuggerDisplay("€ {Value}")]
-    public readonly partial struct EUR : ICurrency, 
-        IFormattable,
-        ICloneable,
-        IEquatable<EUR>,
-        IComparable,
-        IComparable<EUR> {
+    public readonly partial struct EUR : ICurrency, IEquatable<EUR>, IComparable<EUR> {
+        private readonly decimal _value;
+
         public const string Symbol = "€";
 
         public EUR(decimal value) {
-            Value = value;
+            _value = value;
         }
 
-        public decimal Value { get; }
+        public decimal Value => _value;
 
-        public bool Equals(EUR other) => Value == other.Value;
+        public EUR Ceiling() => new EUR(Math.Ceiling(_value));
 
-        public int CompareTo(EUR other) => Value.CompareTo(other.Value);
+        public EUR Round() => new EUR(Math.Round(_value));
+        public EUR Round(int digits) => new EUR(Math.Round(_value, digits));
+        public EUR Round(MidpointRounding mode) => new EUR(Math.Round(_value, mode));
+
+        public EUR Floor() => new EUR(Math.Floor(_value));
+
+        public EUR Truncate() => new EUR(Math.Truncate(_value));
+
+        public EUR Abs() => new EUR(Math.Abs(_value));
+
+        public bool Equals(EUR other) => this._value == other._value;
+
+        public int CompareTo(EUR other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -41,7 +50,7 @@ namespace SystemOfUnits.Currency {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "€ {0}", Value, formatProvider);
+            => string.Format(format ?? "€ {0}", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -50,13 +59,11 @@ namespace SystemOfUnits.Currency {
             return obj is EUR other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"€ {Value:0.00}";
+        public override string ToString() => $"€ {_value:#,##0.00}";
 
         string ICurrency.Symbol => Symbol;
-
-        object ICloneable.Clone() => new EUR(Value);
 
         public static bool operator ==(EUR self, EUR other) => self.Equals(other);
         public static bool operator !=(EUR self, EUR other) => !self.Equals(other);
@@ -66,15 +73,15 @@ namespace SystemOfUnits.Currency {
         public static bool operator <=(EUR self, EUR other) => self.CompareTo(other) <= 0;
         public static bool operator >=(EUR self, EUR other) => self.CompareTo(other) >= 0;
 
-        public static EUR operator +(EUR self, EUR other) => new EUR(self.Value + other.Value);
-        public static EUR operator -(EUR self, EUR other) => new EUR(self.Value - other.Value);
+        public static EUR operator +(EUR self, EUR other) => new EUR(self._value + other._value);
+        public static EUR operator -(EUR self, EUR other) => new EUR(self._value - other._value);
 
-        public static EUR operator *(EUR self, decimal other) => new EUR(self.Value * other);
-        public static EUR operator *(decimal self, EUR other) => new EUR(self * other.Value);
+        public static EUR operator *(EUR self, decimal other) => new EUR(self._value * other);
+        public static EUR operator *(decimal self, EUR other) => new EUR(self * other._value);
 
-        public static EUR operator /(EUR self, decimal other) => new EUR(self.Value / other);
+        public static EUR operator /(EUR self, decimal other) => new EUR(self._value / other);
 
-        public static explicit operator decimal(EUR self) => self.Value;
+        public static explicit operator decimal(EUR self) => self._value;
         public static explicit operator EUR(decimal self) => new EUR(self);
     }
 }

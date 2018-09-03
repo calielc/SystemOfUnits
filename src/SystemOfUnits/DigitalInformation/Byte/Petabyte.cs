@@ -12,23 +12,32 @@ namespace SystemOfUnits.DigitalInformation.Byte {
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} PB")]
-    public readonly partial struct Petabyte : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<Petabyte>,
-        IComparable,
-        IComparable<Petabyte> {
+    public readonly partial struct Petabyte : IUnit, IEquatable<Petabyte>, IComparable<Petabyte> {
+        private readonly double _value;
+
         public const string Symbol = "PB";
 
         public Petabyte(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(Petabyte other) => Math.Abs(Value - other.Value) < 1e-6;
+        public Petabyte Ceiling() => new Petabyte(Math.Ceiling(_value));
 
-        public int CompareTo(Petabyte other) => Value.CompareTo(other.Value);
+        public Petabyte Round() => new Petabyte(Math.Round(_value));
+        public Petabyte Round(int digits) => new Petabyte(Math.Round(_value, digits));
+        public Petabyte Round(MidpointRounding mode) => new Petabyte(Math.Round(_value, mode));
+
+        public Petabyte Floor() => new Petabyte(Math.Floor(_value));
+
+        public Petabyte Truncate() => new Petabyte(Math.Truncate(_value));
+
+        public Petabyte Abs() => new Petabyte(Math.Abs(_value));
+
+        public bool Equals(Petabyte other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(Petabyte other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -44,7 +53,7 @@ namespace SystemOfUnits.DigitalInformation.Byte {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} PB", Value, formatProvider);
+            => string.Format(format ?? "{0} PB", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -53,13 +62,11 @@ namespace SystemOfUnits.DigitalInformation.Byte {
             return obj is Petabyte other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} PB";
+        public override string ToString() => $"{_value:e} PB";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new Petabyte(Value);
 
         public static bool operator ==(Petabyte self, Petabyte other) => self.Equals(other);
         public static bool operator !=(Petabyte self, Petabyte other) => !self.Equals(other);
@@ -69,15 +76,15 @@ namespace SystemOfUnits.DigitalInformation.Byte {
         public static bool operator <=(Petabyte self, Petabyte other) => self.CompareTo(other) <= 0;
         public static bool operator >=(Petabyte self, Petabyte other) => self.CompareTo(other) >= 0;
 
-        public static Petabyte operator +(Petabyte self, Petabyte other) => new Petabyte(self.Value + other.Value);
-        public static Petabyte operator -(Petabyte self, Petabyte other) => new Petabyte(self.Value - other.Value);
+        public static Petabyte operator +(Petabyte self, Petabyte other) => new Petabyte(self._value + other._value);
+        public static Petabyte operator -(Petabyte self, Petabyte other) => new Petabyte(self._value - other._value);
 
-        public static Petabyte operator *(Petabyte self, double other) => new Petabyte(self.Value * other);
-        public static Petabyte operator *(double self, Petabyte other) => new Petabyte(self * other.Value);
+        public static Petabyte operator *(Petabyte self, double other) => new Petabyte(self._value * other);
+        public static Petabyte operator *(double self, Petabyte other) => new Petabyte(self * other._value);
 
-        public static Petabyte operator /(Petabyte self, double other) => new Petabyte(self.Value / other);
+        public static Petabyte operator /(Petabyte self, double other) => new Petabyte(self._value / other);
 
-        public static explicit operator double(Petabyte self) => self.Value;
+        public static explicit operator double(Petabyte self) => self._value;
         public static explicit operator Petabyte(double self) => new Petabyte(self);
     }
 }

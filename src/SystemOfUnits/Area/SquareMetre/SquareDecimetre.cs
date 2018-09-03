@@ -3,26 +3,38 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace SystemOfUnits.Area.SquareMetre {
+    /// <summary>
+    /// Represents a Square decimetre (symbol dm²).
+    /// </summary>
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} dm²")]
-    public readonly partial struct SquareDecimetre : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<SquareDecimetre>,
-        IComparable,
-        IComparable<SquareDecimetre> {
+    public readonly partial struct SquareDecimetre : IUnit, IEquatable<SquareDecimetre>, IComparable<SquareDecimetre> {
+        private readonly double _value;
+
         public const string Symbol = "dm²";
 
         public SquareDecimetre(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(SquareDecimetre other) => Math.Abs(Value - other.Value) < 1e-6;
+        public SquareDecimetre Ceiling() => new SquareDecimetre(Math.Ceiling(_value));
 
-        public int CompareTo(SquareDecimetre other) => Value.CompareTo(other.Value);
+        public SquareDecimetre Round() => new SquareDecimetre(Math.Round(_value));
+        public SquareDecimetre Round(int digits) => new SquareDecimetre(Math.Round(_value, digits));
+        public SquareDecimetre Round(MidpointRounding mode) => new SquareDecimetre(Math.Round(_value, mode));
+
+        public SquareDecimetre Floor() => new SquareDecimetre(Math.Floor(_value));
+
+        public SquareDecimetre Truncate() => new SquareDecimetre(Math.Truncate(_value));
+
+        public SquareDecimetre Abs() => new SquareDecimetre(Math.Abs(_value));
+
+        public bool Equals(SquareDecimetre other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(SquareDecimetre other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -38,7 +50,7 @@ namespace SystemOfUnits.Area.SquareMetre {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} dm²", Value, formatProvider);
+            => string.Format(format ?? "{0} dm²", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -47,13 +59,11 @@ namespace SystemOfUnits.Area.SquareMetre {
             return obj is SquareDecimetre other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} dm²";
+        public override string ToString() => $"{_value:e} dm²";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new SquareDecimetre(Value);
 
         public static bool operator ==(SquareDecimetre self, SquareDecimetre other) => self.Equals(other);
         public static bool operator !=(SquareDecimetre self, SquareDecimetre other) => !self.Equals(other);
@@ -63,15 +73,15 @@ namespace SystemOfUnits.Area.SquareMetre {
         public static bool operator <=(SquareDecimetre self, SquareDecimetre other) => self.CompareTo(other) <= 0;
         public static bool operator >=(SquareDecimetre self, SquareDecimetre other) => self.CompareTo(other) >= 0;
 
-        public static SquareDecimetre operator +(SquareDecimetre self, SquareDecimetre other) => new SquareDecimetre(self.Value + other.Value);
-        public static SquareDecimetre operator -(SquareDecimetre self, SquareDecimetre other) => new SquareDecimetre(self.Value - other.Value);
+        public static SquareDecimetre operator +(SquareDecimetre self, SquareDecimetre other) => new SquareDecimetre(self._value + other._value);
+        public static SquareDecimetre operator -(SquareDecimetre self, SquareDecimetre other) => new SquareDecimetre(self._value - other._value);
 
-        public static SquareDecimetre operator *(SquareDecimetre self, double other) => new SquareDecimetre(self.Value * other);
-        public static SquareDecimetre operator *(double self, SquareDecimetre other) => new SquareDecimetre(self * other.Value);
+        public static SquareDecimetre operator *(SquareDecimetre self, double other) => new SquareDecimetre(self._value * other);
+        public static SquareDecimetre operator *(double self, SquareDecimetre other) => new SquareDecimetre(self * other._value);
 
-        public static SquareDecimetre operator /(SquareDecimetre self, double other) => new SquareDecimetre(self.Value / other);
+        public static SquareDecimetre operator /(SquareDecimetre self, double other) => new SquareDecimetre(self._value / other);
 
-        public static explicit operator double(SquareDecimetre self) => self.Value;
+        public static explicit operator double(SquareDecimetre self) => self._value;
         public static explicit operator SquareDecimetre(double self) => new SquareDecimetre(self);
     }
 }

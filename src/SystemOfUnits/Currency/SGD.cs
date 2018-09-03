@@ -9,23 +9,32 @@ namespace SystemOfUnits.Currency {
     [Serializable]
     [JsonConverter(typeof(CurrencyJsonConverter ))]
     [DebuggerDisplay("$$ {Value}")]
-    public readonly partial struct SGD : ICurrency, 
-        IFormattable,
-        ICloneable,
-        IEquatable<SGD>,
-        IComparable,
-        IComparable<SGD> {
+    public readonly partial struct SGD : ICurrency, IEquatable<SGD>, IComparable<SGD> {
+        private readonly decimal _value;
+
         public const string Symbol = "$$";
 
         public SGD(decimal value) {
-            Value = value;
+            _value = value;
         }
 
-        public decimal Value { get; }
+        public decimal Value => _value;
 
-        public bool Equals(SGD other) => Value == other.Value;
+        public SGD Ceiling() => new SGD(Math.Ceiling(_value));
 
-        public int CompareTo(SGD other) => Value.CompareTo(other.Value);
+        public SGD Round() => new SGD(Math.Round(_value));
+        public SGD Round(int digits) => new SGD(Math.Round(_value, digits));
+        public SGD Round(MidpointRounding mode) => new SGD(Math.Round(_value, mode));
+
+        public SGD Floor() => new SGD(Math.Floor(_value));
+
+        public SGD Truncate() => new SGD(Math.Truncate(_value));
+
+        public SGD Abs() => new SGD(Math.Abs(_value));
+
+        public bool Equals(SGD other) => this._value == other._value;
+
+        public int CompareTo(SGD other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -41,7 +50,7 @@ namespace SystemOfUnits.Currency {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "$$ {0}", Value, formatProvider);
+            => string.Format(format ?? "$$ {0}", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -50,13 +59,11 @@ namespace SystemOfUnits.Currency {
             return obj is SGD other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"$$ {Value:0.00}";
+        public override string ToString() => $"$$ {_value:#,##0.00}";
 
         string ICurrency.Symbol => Symbol;
-
-        object ICloneable.Clone() => new SGD(Value);
 
         public static bool operator ==(SGD self, SGD other) => self.Equals(other);
         public static bool operator !=(SGD self, SGD other) => !self.Equals(other);
@@ -66,15 +73,15 @@ namespace SystemOfUnits.Currency {
         public static bool operator <=(SGD self, SGD other) => self.CompareTo(other) <= 0;
         public static bool operator >=(SGD self, SGD other) => self.CompareTo(other) >= 0;
 
-        public static SGD operator +(SGD self, SGD other) => new SGD(self.Value + other.Value);
-        public static SGD operator -(SGD self, SGD other) => new SGD(self.Value - other.Value);
+        public static SGD operator +(SGD self, SGD other) => new SGD(self._value + other._value);
+        public static SGD operator -(SGD self, SGD other) => new SGD(self._value - other._value);
 
-        public static SGD operator *(SGD self, decimal other) => new SGD(self.Value * other);
-        public static SGD operator *(decimal self, SGD other) => new SGD(self * other.Value);
+        public static SGD operator *(SGD self, decimal other) => new SGD(self._value * other);
+        public static SGD operator *(decimal self, SGD other) => new SGD(self * other._value);
 
-        public static SGD operator /(SGD self, decimal other) => new SGD(self.Value / other);
+        public static SGD operator /(SGD self, decimal other) => new SGD(self._value / other);
 
-        public static explicit operator decimal(SGD self) => self.Value;
+        public static explicit operator decimal(SGD self) => self._value;
         public static explicit operator SGD(decimal self) => new SGD(self);
     }
 }

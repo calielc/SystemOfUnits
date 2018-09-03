@@ -9,23 +9,32 @@ namespace SystemOfUnits.Currency {
     [Serializable]
     [JsonConverter(typeof(CurrencyJsonConverter ))]
     [DebuggerDisplay("HK$ {Value}")]
-    public readonly partial struct HKD : ICurrency, 
-        IFormattable,
-        ICloneable,
-        IEquatable<HKD>,
-        IComparable,
-        IComparable<HKD> {
+    public readonly partial struct HKD : ICurrency, IEquatable<HKD>, IComparable<HKD> {
+        private readonly decimal _value;
+
         public const string Symbol = "HK$";
 
         public HKD(decimal value) {
-            Value = value;
+            _value = value;
         }
 
-        public decimal Value { get; }
+        public decimal Value => _value;
 
-        public bool Equals(HKD other) => Value == other.Value;
+        public HKD Ceiling() => new HKD(Math.Ceiling(_value));
 
-        public int CompareTo(HKD other) => Value.CompareTo(other.Value);
+        public HKD Round() => new HKD(Math.Round(_value));
+        public HKD Round(int digits) => new HKD(Math.Round(_value, digits));
+        public HKD Round(MidpointRounding mode) => new HKD(Math.Round(_value, mode));
+
+        public HKD Floor() => new HKD(Math.Floor(_value));
+
+        public HKD Truncate() => new HKD(Math.Truncate(_value));
+
+        public HKD Abs() => new HKD(Math.Abs(_value));
+
+        public bool Equals(HKD other) => this._value == other._value;
+
+        public int CompareTo(HKD other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -41,7 +50,7 @@ namespace SystemOfUnits.Currency {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "HK$ {0}", Value, formatProvider);
+            => string.Format(format ?? "HK$ {0}", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -50,13 +59,11 @@ namespace SystemOfUnits.Currency {
             return obj is HKD other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"HK$ {Value:0.00}";
+        public override string ToString() => $"HK$ {_value:#,##0.00}";
 
         string ICurrency.Symbol => Symbol;
-
-        object ICloneable.Clone() => new HKD(Value);
 
         public static bool operator ==(HKD self, HKD other) => self.Equals(other);
         public static bool operator !=(HKD self, HKD other) => !self.Equals(other);
@@ -66,15 +73,15 @@ namespace SystemOfUnits.Currency {
         public static bool operator <=(HKD self, HKD other) => self.CompareTo(other) <= 0;
         public static bool operator >=(HKD self, HKD other) => self.CompareTo(other) >= 0;
 
-        public static HKD operator +(HKD self, HKD other) => new HKD(self.Value + other.Value);
-        public static HKD operator -(HKD self, HKD other) => new HKD(self.Value - other.Value);
+        public static HKD operator +(HKD self, HKD other) => new HKD(self._value + other._value);
+        public static HKD operator -(HKD self, HKD other) => new HKD(self._value - other._value);
 
-        public static HKD operator *(HKD self, decimal other) => new HKD(self.Value * other);
-        public static HKD operator *(decimal self, HKD other) => new HKD(self * other.Value);
+        public static HKD operator *(HKD self, decimal other) => new HKD(self._value * other);
+        public static HKD operator *(decimal self, HKD other) => new HKD(self * other._value);
 
-        public static HKD operator /(HKD self, decimal other) => new HKD(self.Value / other);
+        public static HKD operator /(HKD self, decimal other) => new HKD(self._value / other);
 
-        public static explicit operator decimal(HKD self) => self.Value;
+        public static explicit operator decimal(HKD self) => self._value;
         public static explicit operator HKD(decimal self) => new HKD(self);
     }
 }

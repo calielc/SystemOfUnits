@@ -125,24 +125,218 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
             
             #line default
             #line hidden
-            this.Write(".Symbol, actual.Symbol);\r\n        }\r\n\r\n        [TestCaseSource(nameof(CasesValues" +
-                    "))]\r\n        public void Should_clone(decimal value) {\r\n            var expected" +
-                    " = new ");
+            this.Write(@".Symbol, actual.Symbol);
+        }
+
+        [TestCase(-8.9d, -9d)]
+        [TestCase(-7.1d, -8d)]
+        [TestCase(-6.0d, -6d)]
+        [TestCase(0d, 0d)]
+        [TestCase(12.0d, 12d)]
+        [TestCase(13.1d, 13d)]
+        [TestCase(14.9d, 14d)]
+        public void Should_floor_value(double value, double expectedValue) {
+            var expected = new ");
             
-            #line 39 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 45 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
-            this.Write("(value);\r\n\r\n            ICloneable cloneable = new ");
+            this.Write("((decimal)expectedValue);\r\n\r\n            var instance = new ");
             
-            #line 41 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 47 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
-            this.Write(@"(value);
-            var actual = cloneable.Clone();
+            this.Write(@"((decimal)value);
+            var actual = instance.Floor();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-7.9d, -8d)]
+        [TestCase(-6.6d, -7d)]
+        [TestCase(-5.5d, -6d)]
+        [TestCase(-4.1d, -4d)]
+        [TestCase(-3.0d, -3d)]
+        [TestCase(0d, 0d)]
+        [TestCase(12.0d, 12d)]
+        [TestCase(13.1d, 13d)]
+        [TestCase(14.5d, 14d)]
+        [TestCase(15.6d, 16d)]
+        [TestCase(16.9d, 17d)]
+        public void Should_round_value(double value, double expectedValue) {
+            var expected = new ");
+            
+            #line 65 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
+            
+            #line default
+            #line hidden
+            this.Write("((decimal)expectedValue);\r\n\r\n            var instance = new ");
+            
+            #line 67 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
+            
+            #line default
+            #line hidden
+            this.Write(@"((decimal)value);
+            var actual = instance.Round();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-7.59d, -7.6d)]
+        [TestCase(-6.46d, -6.5d)]
+        [TestCase(-5.35d, -5.4d)]
+        [TestCase(-4.21d, -4.2d)]
+        [TestCase(-3.10d, -3.1d)]
+        [TestCase(0d, 0d)]
+        [TestCase(12.30d, 12.3d)]
+        [TestCase(13.41d, 13.4d)]
+        [TestCase(14.55d, 14.6d)]
+        [TestCase(15.66d, 15.7d)]
+        [TestCase(16.79d, 16.8d)]
+        public void Should_round_value_withDigit(double value, double expectedValue) {
+            var expected = new ");
+            
+            #line 85 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
+            
+            #line default
+            #line hidden
+            this.Write("((decimal)expectedValue);\r\n\r\n            var instance = new ");
+            
+            #line 87 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
+            
+            #line default
+            #line hidden
+            this.Write("((decimal)value);\r\n            var actual = instance.Round(1);\r\n\r\n            Ass" +
+                    "ert.AreEqual(expected, actual);\r\n        }\r\n\r\n        [TestCase(MidpointRounding" +
+                    ".AwayFromZero, -7.9d, -8d)]\r\n        [TestCase(MidpointRounding.AwayFromZero, -6" +
+                    ".6d, -7d)]\r\n        [TestCase(MidpointRounding.AwayFromZero, -5.5d, -6d)]\r\n     " +
+                    "   [TestCase(MidpointRounding.AwayFromZero, -4.1d, -4d)]\r\n        [TestCase(Midp" +
+                    "ointRounding.AwayFromZero, -3.0d, -3d)]\r\n        [TestCase(MidpointRounding.Away" +
+                    "FromZero, 0d, 0d)]\r\n        [TestCase(MidpointRounding.AwayFromZero, 12.0d, 12d)" +
+                    "]\r\n        [TestCase(MidpointRounding.AwayFromZero, 13.1d, 13d)]\r\n        [TestC" +
+                    "ase(MidpointRounding.AwayFromZero, 14.5d, 15d)]\r\n        [TestCase(MidpointRound" +
+                    "ing.AwayFromZero, 15.6d, 16d)]\r\n        [TestCase(MidpointRounding.AwayFromZero," +
+                    " 16.9d, 17d)]\r\n        [TestCase(MidpointRounding.ToEven, -7.9d, -8d)]\r\n        " +
+                    "[TestCase(MidpointRounding.ToEven, -6.6d, -7d)]\r\n        [TestCase(MidpointRound" +
+                    "ing.ToEven, -5.5d, -6d)]\r\n        [TestCase(MidpointRounding.ToEven, -4.1d, -4d)" +
+                    "]\r\n        [TestCase(MidpointRounding.ToEven, -3.0d, -3d)]\r\n        [TestCase(Mi" +
+                    "dpointRounding.ToEven, 0d, 0d)]\r\n        [TestCase(MidpointRounding.ToEven, 12.0" +
+                    "d, 12d)]\r\n        [TestCase(MidpointRounding.ToEven, 13.1d, 13d)]\r\n        [Test" +
+                    "Case(MidpointRounding.ToEven, 14.5d, 14d)]\r\n        [TestCase(MidpointRounding.T" +
+                    "oEven, 15.6d, 16d)]\r\n        [TestCase(MidpointRounding.ToEven, 16.9d, 17d)]\r\n  " +
+                    "      public void Should_roundvalue_withMode(MidpointRounding mode, double value" +
+                    ", double expectedValue) {\r\n            var expected = new ");
+            
+            #line 116 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
+            
+            #line default
+            #line hidden
+            this.Write("((decimal)expectedValue);\r\n\r\n            var instance = new ");
+            
+            #line 118 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
+            
+            #line default
+            #line hidden
+            this.Write(@"((decimal)value);
+            var actual = instance.Round(mode);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-8.9d, -8d)]
+        [TestCase(-7.1d, -7d)]
+        [TestCase(-6.0d, -6d)]
+        [TestCase(0d, 0d)]
+        [TestCase(12.0d, 12d)]
+        [TestCase(13.1d, 14d)]
+        [TestCase(14.9d, 15d)]
+        public void Should_ceiling_value(double value, double expectedValue) {
+            var expected = new ");
+            
+            #line 132 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
+            
+            #line default
+            #line hidden
+            this.Write("((decimal)expectedValue);\r\n\r\n            var instance = new ");
+            
+            #line 134 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
+            
+            #line default
+            #line hidden
+            this.Write(@"((decimal)value);
+            var actual = instance.Ceiling();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-7.9d, -7d)]
+        [TestCase(-6.6d, -6d)]
+        [TestCase(-5.5d, -5d)]
+        [TestCase(-4.1d, -4d)]
+        [TestCase(-3.0d, -3d)]
+        [TestCase(0d, 0d)]
+        [TestCase(12.0d, 12d)]
+        [TestCase(13.1d, 13d)]
+        [TestCase(14.5d, 14d)]
+        [TestCase(15.6d, 15d)]
+        [TestCase(16.9d, 16d)]
+        public void Should_truncate_value(double value, double expectedValue) {
+            var expected = new ");
+            
+            #line 152 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
+            
+            #line default
+            #line hidden
+            this.Write("((decimal)expectedValue);\r\n\r\n            var instance = new ");
+            
+            #line 154 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
+            
+            #line default
+            #line hidden
+            this.Write(@"((decimal)value);
+            var actual = instance.Truncate();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-8.9d, 8.9d)]
+        [TestCase(-7.1d, 7.1d)]
+        [TestCase(-6.0d, 6.0d)]
+        [TestCase(0d, 0d)]
+        [TestCase(12.0d, 12.0d)]
+        [TestCase(13.1d, 13.1d)]
+        [TestCase(14.9d, 14.9d)]
+        public void Should_absolute_value(double value, double expectedValue) {
+            var expected = new ");
+            
+            #line 168 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
+            
+            #line default
+            #line hidden
+            this.Write("((decimal)expectedValue);\r\n\r\n            var instance = new ");
+            
+            #line 170 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
+            
+            #line default
+            #line hidden
+            this.Write(@"((decimal)value);
+            var actual = instance.Abs();
 
             Assert.AreEqual(expected, actual);
         }
@@ -151,14 +345,14 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_cast_from_decimal(decimal value) {
             var expected = new ");
             
-            #line 49 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 178 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
             this.Write("(value);\r\n\r\n            var actual = (");
             
-            #line 51 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 180 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -167,7 +361,7 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
                     "TestCaseSource(nameof(CasesValues))]\r\n        public void Should_cast_to_decimal" +
                     "(decimal value) {\r\n            var instance = new ");
             
-            #line 58 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 187 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -183,14 +377,14 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_compare_with_same_value(decimal value) {
             var baseInstance = new ");
             
-            #line 67 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 196 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
             this.Write("(value);\r\n            var otherInstance = new ");
             
-            #line 68 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 197 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -222,14 +416,14 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_compare_with_smaller_value(double baseValue, double smallerValue) {
             var baseInstance = new ");
             
-            #line 93 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 222 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
             this.Write("((decimal)baseValue);\r\n            var smallerInstance = new ");
             
-            #line 94 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 223 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -261,14 +455,14 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_compare_with_bigger_value(double baseValue, double biggerValue) {
             var baseInstance = new ");
             
-            #line 119 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 248 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
             this.Write("((decimal)baseValue);\r\n            var biggerInstance = new ");
             
-            #line 120 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 249 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -295,7 +489,7 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_compare_with_null_instance(decimal value) {
             var instance = new ");
             
-            #line 140 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 269 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -310,7 +504,7 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_compare_with_another_type_of_instance(decimal value) {
             var instance1 = new ");
             
-            #line 148 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 277 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -331,21 +525,21 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_sum_two_instances(double leftValue, double rightValue, double expectedValue) {
             var expected = new ");
             
-            #line 162 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 291 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
             this.Write("((decimal)expectedValue);\r\n\r\n            var leftInstance = new ");
             
-            #line 164 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 293 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
             this.Write("((decimal)leftValue);\r\n            var rightInstance = new ");
             
-            #line 165 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 294 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -365,21 +559,21 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_subtract_two_instances(double leftValue, double rightValue, double expectedValue) {
             var expected = new ");
             
-            #line 178 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 307 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
             this.Write("((decimal)expectedValue);\r\n\r\n            var leftInstance = new ");
             
-            #line 180 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 309 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
             this.Write("((decimal)leftValue);\r\n            var rightInstance = new ");
             
-            #line 181 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 310 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -401,14 +595,14 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_multiply_instance_by_decimal(double leftValue, double rightValue, double expectedValue) {
             var expected = new ");
             
-            #line 196 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 325 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
             this.Write("((decimal)expectedValue);\r\n\r\n            var instance = new ");
             
-            #line 198 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 327 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -430,14 +624,14 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_multiply_decimal_by_instance(double leftValue, double rightValue, double expectedValue) {
             var expected = new ");
             
-            #line 213 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 342 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
             this.Write("((decimal)expectedValue);\r\n\r\n            var instance = new ");
             
-            #line 215 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 344 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -458,14 +652,14 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_divide_instance_by_decimal(double leftValue, double rightValue, double expectedValue) {
             var expected = new ");
             
-            #line 229 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 358 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
             #line hidden
             this.Write("((decimal)expectedValue);\r\n\r\n            var instance = new ");
             
-            #line 231 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 360 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -480,7 +674,7 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_throw_exception_on_division_by_zero(decimal value) {
             var instance = new ");
             
-            #line 239 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 368 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -496,14 +690,14 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
         public void Should_convert_to_string(decimal value) {
             var expected = $""");
             
-            #line 248 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 377 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Symbol));
             
             #line default
             #line hidden
             this.Write(" {value:0.00}\";\r\n\r\n            var instance = new ");
             
-            #line 250 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 379 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -511,7 +705,7 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
             this.Write("(value);\r\n            var actual = instance.ToString();\r\n\r\n            Assert.Are" +
                     "Equal(expected, actual);\r\n        }\r\n\r\n        [TestCase(null, \"");
             
-            #line 256 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 385 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Symbol));
             
             #line default
@@ -526,7 +720,7 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
 
             var instance = new ");
             
-            #line 264 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 393 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default
@@ -543,7 +737,7 @@ namespace SystemOfUnitsGenerator.GeneratorsCurrency.Templates
 
             var instance = new ");
             
-            #line 274 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
+            #line 403 "C:\Users\calie\code\SystemOfUnits\src\SystemOfUnitsGenerator\GeneratorsCurrency\Templates\TestClassTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CodeClass.Class));
             
             #line default

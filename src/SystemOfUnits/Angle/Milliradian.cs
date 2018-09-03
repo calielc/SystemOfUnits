@@ -3,26 +3,38 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace SystemOfUnits.Angle {
+    /// <summary>
+    /// Represents a Milliradian (symbol mrad).
+    /// </summary>
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} mrad")]
-    public readonly partial struct Milliradian : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<Milliradian>,
-        IComparable,
-        IComparable<Milliradian> {
+    public readonly partial struct Milliradian : IUnit, IEquatable<Milliradian>, IComparable<Milliradian> {
+        private readonly double _value;
+
         public const string Symbol = "mrad";
 
         public Milliradian(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(Milliradian other) => Math.Abs(Value - other.Value) < 1e-6;
+        public Milliradian Ceiling() => new Milliradian(Math.Ceiling(_value));
 
-        public int CompareTo(Milliradian other) => Value.CompareTo(other.Value);
+        public Milliradian Round() => new Milliradian(Math.Round(_value));
+        public Milliradian Round(int digits) => new Milliradian(Math.Round(_value, digits));
+        public Milliradian Round(MidpointRounding mode) => new Milliradian(Math.Round(_value, mode));
+
+        public Milliradian Floor() => new Milliradian(Math.Floor(_value));
+
+        public Milliradian Truncate() => new Milliradian(Math.Truncate(_value));
+
+        public Milliradian Abs() => new Milliradian(Math.Abs(_value));
+
+        public bool Equals(Milliradian other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(Milliradian other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -38,7 +50,7 @@ namespace SystemOfUnits.Angle {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} mrad", Value, formatProvider);
+            => string.Format(format ?? "{0} mrad", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -47,13 +59,11 @@ namespace SystemOfUnits.Angle {
             return obj is Milliradian other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} mrad";
+        public override string ToString() => $"{_value:e} mrad";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new Milliradian(Value);
 
         public static bool operator ==(Milliradian self, Milliradian other) => self.Equals(other);
         public static bool operator !=(Milliradian self, Milliradian other) => !self.Equals(other);
@@ -63,15 +73,15 @@ namespace SystemOfUnits.Angle {
         public static bool operator <=(Milliradian self, Milliradian other) => self.CompareTo(other) <= 0;
         public static bool operator >=(Milliradian self, Milliradian other) => self.CompareTo(other) >= 0;
 
-        public static Milliradian operator +(Milliradian self, Milliradian other) => new Milliradian(self.Value + other.Value);
-        public static Milliradian operator -(Milliradian self, Milliradian other) => new Milliradian(self.Value - other.Value);
+        public static Milliradian operator +(Milliradian self, Milliradian other) => new Milliradian(self._value + other._value);
+        public static Milliradian operator -(Milliradian self, Milliradian other) => new Milliradian(self._value - other._value);
 
-        public static Milliradian operator *(Milliradian self, double other) => new Milliradian(self.Value * other);
-        public static Milliradian operator *(double self, Milliradian other) => new Milliradian(self * other.Value);
+        public static Milliradian operator *(Milliradian self, double other) => new Milliradian(self._value * other);
+        public static Milliradian operator *(double self, Milliradian other) => new Milliradian(self * other._value);
 
-        public static Milliradian operator /(Milliradian self, double other) => new Milliradian(self.Value / other);
+        public static Milliradian operator /(Milliradian self, double other) => new Milliradian(self._value / other);
 
-        public static explicit operator double(Milliradian self) => self.Value;
+        public static explicit operator double(Milliradian self) => self._value;
         public static explicit operator Milliradian(double self) => new Milliradian(self);
     }
 }

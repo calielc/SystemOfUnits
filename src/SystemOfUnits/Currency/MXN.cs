@@ -9,23 +9,32 @@ namespace SystemOfUnits.Currency {
     [Serializable]
     [JsonConverter(typeof(CurrencyJsonConverter ))]
     [DebuggerDisplay("$ {Value}")]
-    public readonly partial struct MXN : ICurrency, 
-        IFormattable,
-        ICloneable,
-        IEquatable<MXN>,
-        IComparable,
-        IComparable<MXN> {
+    public readonly partial struct MXN : ICurrency, IEquatable<MXN>, IComparable<MXN> {
+        private readonly decimal _value;
+
         public const string Symbol = "$";
 
         public MXN(decimal value) {
-            Value = value;
+            _value = value;
         }
 
-        public decimal Value { get; }
+        public decimal Value => _value;
 
-        public bool Equals(MXN other) => Value == other.Value;
+        public MXN Ceiling() => new MXN(Math.Ceiling(_value));
 
-        public int CompareTo(MXN other) => Value.CompareTo(other.Value);
+        public MXN Round() => new MXN(Math.Round(_value));
+        public MXN Round(int digits) => new MXN(Math.Round(_value, digits));
+        public MXN Round(MidpointRounding mode) => new MXN(Math.Round(_value, mode));
+
+        public MXN Floor() => new MXN(Math.Floor(_value));
+
+        public MXN Truncate() => new MXN(Math.Truncate(_value));
+
+        public MXN Abs() => new MXN(Math.Abs(_value));
+
+        public bool Equals(MXN other) => this._value == other._value;
+
+        public int CompareTo(MXN other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -41,7 +50,7 @@ namespace SystemOfUnits.Currency {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "$ {0}", Value, formatProvider);
+            => string.Format(format ?? "$ {0}", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -50,13 +59,11 @@ namespace SystemOfUnits.Currency {
             return obj is MXN other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"$ {Value:0.00}";
+        public override string ToString() => $"$ {_value:#,##0.00}";
 
         string ICurrency.Symbol => Symbol;
-
-        object ICloneable.Clone() => new MXN(Value);
 
         public static bool operator ==(MXN self, MXN other) => self.Equals(other);
         public static bool operator !=(MXN self, MXN other) => !self.Equals(other);
@@ -66,15 +73,15 @@ namespace SystemOfUnits.Currency {
         public static bool operator <=(MXN self, MXN other) => self.CompareTo(other) <= 0;
         public static bool operator >=(MXN self, MXN other) => self.CompareTo(other) >= 0;
 
-        public static MXN operator +(MXN self, MXN other) => new MXN(self.Value + other.Value);
-        public static MXN operator -(MXN self, MXN other) => new MXN(self.Value - other.Value);
+        public static MXN operator +(MXN self, MXN other) => new MXN(self._value + other._value);
+        public static MXN operator -(MXN self, MXN other) => new MXN(self._value - other._value);
 
-        public static MXN operator *(MXN self, decimal other) => new MXN(self.Value * other);
-        public static MXN operator *(decimal self, MXN other) => new MXN(self * other.Value);
+        public static MXN operator *(MXN self, decimal other) => new MXN(self._value * other);
+        public static MXN operator *(decimal self, MXN other) => new MXN(self * other._value);
 
-        public static MXN operator /(MXN self, decimal other) => new MXN(self.Value / other);
+        public static MXN operator /(MXN self, decimal other) => new MXN(self._value / other);
 
-        public static explicit operator decimal(MXN self) => self.Value;
+        public static explicit operator decimal(MXN self) => self._value;
         public static explicit operator MXN(decimal self) => new MXN(self);
     }
 }

@@ -12,23 +12,32 @@ namespace SystemOfUnits.DigitalInformation.Byte {
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} PiB")]
-    public readonly partial struct Pebibyte : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<Pebibyte>,
-        IComparable,
-        IComparable<Pebibyte> {
+    public readonly partial struct Pebibyte : IUnit, IEquatable<Pebibyte>, IComparable<Pebibyte> {
+        private readonly double _value;
+
         public const string Symbol = "PiB";
 
         public Pebibyte(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(Pebibyte other) => Math.Abs(Value - other.Value) < 1e-6;
+        public Pebibyte Ceiling() => new Pebibyte(Math.Ceiling(_value));
 
-        public int CompareTo(Pebibyte other) => Value.CompareTo(other.Value);
+        public Pebibyte Round() => new Pebibyte(Math.Round(_value));
+        public Pebibyte Round(int digits) => new Pebibyte(Math.Round(_value, digits));
+        public Pebibyte Round(MidpointRounding mode) => new Pebibyte(Math.Round(_value, mode));
+
+        public Pebibyte Floor() => new Pebibyte(Math.Floor(_value));
+
+        public Pebibyte Truncate() => new Pebibyte(Math.Truncate(_value));
+
+        public Pebibyte Abs() => new Pebibyte(Math.Abs(_value));
+
+        public bool Equals(Pebibyte other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(Pebibyte other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -44,7 +53,7 @@ namespace SystemOfUnits.DigitalInformation.Byte {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} PiB", Value, formatProvider);
+            => string.Format(format ?? "{0} PiB", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -53,13 +62,11 @@ namespace SystemOfUnits.DigitalInformation.Byte {
             return obj is Pebibyte other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} PiB";
+        public override string ToString() => $"{_value:e} PiB";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new Pebibyte(Value);
 
         public static bool operator ==(Pebibyte self, Pebibyte other) => self.Equals(other);
         public static bool operator !=(Pebibyte self, Pebibyte other) => !self.Equals(other);
@@ -69,15 +76,15 @@ namespace SystemOfUnits.DigitalInformation.Byte {
         public static bool operator <=(Pebibyte self, Pebibyte other) => self.CompareTo(other) <= 0;
         public static bool operator >=(Pebibyte self, Pebibyte other) => self.CompareTo(other) >= 0;
 
-        public static Pebibyte operator +(Pebibyte self, Pebibyte other) => new Pebibyte(self.Value + other.Value);
-        public static Pebibyte operator -(Pebibyte self, Pebibyte other) => new Pebibyte(self.Value - other.Value);
+        public static Pebibyte operator +(Pebibyte self, Pebibyte other) => new Pebibyte(self._value + other._value);
+        public static Pebibyte operator -(Pebibyte self, Pebibyte other) => new Pebibyte(self._value - other._value);
 
-        public static Pebibyte operator *(Pebibyte self, double other) => new Pebibyte(self.Value * other);
-        public static Pebibyte operator *(double self, Pebibyte other) => new Pebibyte(self * other.Value);
+        public static Pebibyte operator *(Pebibyte self, double other) => new Pebibyte(self._value * other);
+        public static Pebibyte operator *(double self, Pebibyte other) => new Pebibyte(self * other._value);
 
-        public static Pebibyte operator /(Pebibyte self, double other) => new Pebibyte(self.Value / other);
+        public static Pebibyte operator /(Pebibyte self, double other) => new Pebibyte(self._value / other);
 
-        public static explicit operator double(Pebibyte self) => self.Value;
+        public static explicit operator double(Pebibyte self) => self._value;
         public static explicit operator Pebibyte(double self) => new Pebibyte(self);
     }
 }

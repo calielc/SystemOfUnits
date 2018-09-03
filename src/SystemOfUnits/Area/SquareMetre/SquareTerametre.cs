@@ -3,26 +3,38 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace SystemOfUnits.Area.SquareMetre {
+    /// <summary>
+    /// Represents a Square terametre (symbol Tm²).
+    /// </summary>
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} Tm²")]
-    public readonly partial struct SquareTerametre : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<SquareTerametre>,
-        IComparable,
-        IComparable<SquareTerametre> {
+    public readonly partial struct SquareTerametre : IUnit, IEquatable<SquareTerametre>, IComparable<SquareTerametre> {
+        private readonly double _value;
+
         public const string Symbol = "Tm²";
 
         public SquareTerametre(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(SquareTerametre other) => Math.Abs(Value - other.Value) < 1e-6;
+        public SquareTerametre Ceiling() => new SquareTerametre(Math.Ceiling(_value));
 
-        public int CompareTo(SquareTerametre other) => Value.CompareTo(other.Value);
+        public SquareTerametre Round() => new SquareTerametre(Math.Round(_value));
+        public SquareTerametre Round(int digits) => new SquareTerametre(Math.Round(_value, digits));
+        public SquareTerametre Round(MidpointRounding mode) => new SquareTerametre(Math.Round(_value, mode));
+
+        public SquareTerametre Floor() => new SquareTerametre(Math.Floor(_value));
+
+        public SquareTerametre Truncate() => new SquareTerametre(Math.Truncate(_value));
+
+        public SquareTerametre Abs() => new SquareTerametre(Math.Abs(_value));
+
+        public bool Equals(SquareTerametre other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(SquareTerametre other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -38,7 +50,7 @@ namespace SystemOfUnits.Area.SquareMetre {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} Tm²", Value, formatProvider);
+            => string.Format(format ?? "{0} Tm²", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -47,13 +59,11 @@ namespace SystemOfUnits.Area.SquareMetre {
             return obj is SquareTerametre other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} Tm²";
+        public override string ToString() => $"{_value:e} Tm²";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new SquareTerametre(Value);
 
         public static bool operator ==(SquareTerametre self, SquareTerametre other) => self.Equals(other);
         public static bool operator !=(SquareTerametre self, SquareTerametre other) => !self.Equals(other);
@@ -63,15 +73,15 @@ namespace SystemOfUnits.Area.SquareMetre {
         public static bool operator <=(SquareTerametre self, SquareTerametre other) => self.CompareTo(other) <= 0;
         public static bool operator >=(SquareTerametre self, SquareTerametre other) => self.CompareTo(other) >= 0;
 
-        public static SquareTerametre operator +(SquareTerametre self, SquareTerametre other) => new SquareTerametre(self.Value + other.Value);
-        public static SquareTerametre operator -(SquareTerametre self, SquareTerametre other) => new SquareTerametre(self.Value - other.Value);
+        public static SquareTerametre operator +(SquareTerametre self, SquareTerametre other) => new SquareTerametre(self._value + other._value);
+        public static SquareTerametre operator -(SquareTerametre self, SquareTerametre other) => new SquareTerametre(self._value - other._value);
 
-        public static SquareTerametre operator *(SquareTerametre self, double other) => new SquareTerametre(self.Value * other);
-        public static SquareTerametre operator *(double self, SquareTerametre other) => new SquareTerametre(self * other.Value);
+        public static SquareTerametre operator *(SquareTerametre self, double other) => new SquareTerametre(self._value * other);
+        public static SquareTerametre operator *(double self, SquareTerametre other) => new SquareTerametre(self * other._value);
 
-        public static SquareTerametre operator /(SquareTerametre self, double other) => new SquareTerametre(self.Value / other);
+        public static SquareTerametre operator /(SquareTerametre self, double other) => new SquareTerametre(self._value / other);
 
-        public static explicit operator double(SquareTerametre self) => self.Value;
+        public static explicit operator double(SquareTerametre self) => self._value;
         public static explicit operator SquareTerametre(double self) => new SquareTerametre(self);
     }
 }

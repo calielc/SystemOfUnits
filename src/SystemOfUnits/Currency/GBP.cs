@@ -9,23 +9,32 @@ namespace SystemOfUnits.Currency {
     [Serializable]
     [JsonConverter(typeof(CurrencyJsonConverter ))]
     [DebuggerDisplay("£ {Value}")]
-    public readonly partial struct GBP : ICurrency, 
-        IFormattable,
-        ICloneable,
-        IEquatable<GBP>,
-        IComparable,
-        IComparable<GBP> {
+    public readonly partial struct GBP : ICurrency, IEquatable<GBP>, IComparable<GBP> {
+        private readonly decimal _value;
+
         public const string Symbol = "£";
 
         public GBP(decimal value) {
-            Value = value;
+            _value = value;
         }
 
-        public decimal Value { get; }
+        public decimal Value => _value;
 
-        public bool Equals(GBP other) => Value == other.Value;
+        public GBP Ceiling() => new GBP(Math.Ceiling(_value));
 
-        public int CompareTo(GBP other) => Value.CompareTo(other.Value);
+        public GBP Round() => new GBP(Math.Round(_value));
+        public GBP Round(int digits) => new GBP(Math.Round(_value, digits));
+        public GBP Round(MidpointRounding mode) => new GBP(Math.Round(_value, mode));
+
+        public GBP Floor() => new GBP(Math.Floor(_value));
+
+        public GBP Truncate() => new GBP(Math.Truncate(_value));
+
+        public GBP Abs() => new GBP(Math.Abs(_value));
+
+        public bool Equals(GBP other) => this._value == other._value;
+
+        public int CompareTo(GBP other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -41,7 +50,7 @@ namespace SystemOfUnits.Currency {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "£ {0}", Value, formatProvider);
+            => string.Format(format ?? "£ {0}", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -50,13 +59,11 @@ namespace SystemOfUnits.Currency {
             return obj is GBP other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"£ {Value:0.00}";
+        public override string ToString() => $"£ {_value:#,##0.00}";
 
         string ICurrency.Symbol => Symbol;
-
-        object ICloneable.Clone() => new GBP(Value);
 
         public static bool operator ==(GBP self, GBP other) => self.Equals(other);
         public static bool operator !=(GBP self, GBP other) => !self.Equals(other);
@@ -66,15 +73,15 @@ namespace SystemOfUnits.Currency {
         public static bool operator <=(GBP self, GBP other) => self.CompareTo(other) <= 0;
         public static bool operator >=(GBP self, GBP other) => self.CompareTo(other) >= 0;
 
-        public static GBP operator +(GBP self, GBP other) => new GBP(self.Value + other.Value);
-        public static GBP operator -(GBP self, GBP other) => new GBP(self.Value - other.Value);
+        public static GBP operator +(GBP self, GBP other) => new GBP(self._value + other._value);
+        public static GBP operator -(GBP self, GBP other) => new GBP(self._value - other._value);
 
-        public static GBP operator *(GBP self, decimal other) => new GBP(self.Value * other);
-        public static GBP operator *(decimal self, GBP other) => new GBP(self * other.Value);
+        public static GBP operator *(GBP self, decimal other) => new GBP(self._value * other);
+        public static GBP operator *(decimal self, GBP other) => new GBP(self * other._value);
 
-        public static GBP operator /(GBP self, decimal other) => new GBP(self.Value / other);
+        public static GBP operator /(GBP self, decimal other) => new GBP(self._value / other);
 
-        public static explicit operator decimal(GBP self) => self.Value;
+        public static explicit operator decimal(GBP self) => self._value;
         public static explicit operator GBP(decimal self) => new GBP(self);
     }
 }

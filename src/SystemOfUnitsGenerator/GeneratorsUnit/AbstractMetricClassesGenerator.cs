@@ -17,16 +17,15 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
 
             var baseUnit = GetBaseUnit();
             var baseSymbol = GetBaseSymbol();
-            var namespaceCode = NamespaceDefinition.SystemOfUnits + GetNamespace();
-            var namespaceTest = NamespaceDefinition.SystemOfUnitsTests + GetNamespace();
+            var namespaces = new UnitNamespaces(GetNamespace());
 
-            builder.Add(+3, new Context(namespaceCode, namespaceTest, $"kilo{baseUnit}", $"k{baseSymbol}"));
-            builder.Add(+2, new Context(namespaceCode, namespaceTest, $"hecto{baseUnit}", $"h{baseSymbol}"));
-            builder.Add(+1, new Context(namespaceCode, namespaceTest, $"deca{baseUnit}", $"da{baseSymbol}"));
-            builder.Add(00, new Context(namespaceCode, namespaceTest, $"{baseUnit}", $"{baseSymbol}"));
-            builder.Add(-1, new Context(namespaceCode, namespaceTest, $"deci{baseUnit}", $"d{baseSymbol}"));
-            builder.Add(-2, new Context(namespaceCode, namespaceTest, $"centi{baseUnit}", $"c{baseSymbol}"));
-            builder.Add(-3, new Context(namespaceCode, namespaceTest, $"milli{baseUnit}", $"m{baseSymbol}"));
+            builder.Add(+3, namespaces + new UnitDefinition($"kilo{baseUnit}", $"k{baseSymbol}"));
+            builder.Add(+2, namespaces + new UnitDefinition($"hecto{baseUnit}", $"h{baseSymbol}"));
+            builder.Add(+1, namespaces + new UnitDefinition($"deca{baseUnit}", $"da{baseSymbol}"));
+            builder.Add(00, namespaces + new UnitDefinition($"{baseUnit}", $"{baseSymbol}"));
+            builder.Add(-1, namespaces + new UnitDefinition($"deci{baseUnit}", $"d{baseSymbol}"));
+            builder.Add(-2, namespaces + new UnitDefinition($"centi{baseUnit}", $"c{baseSymbol}"));
+            builder.Add(-3, namespaces + new UnitDefinition($"milli{baseUnit}", $"m{baseSymbol}"));
 
             builder.TestCases = new[]
             {
@@ -42,7 +41,7 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
             return builder.Build();
         }
 
-        protected abstract NamespaceDefinition GetNamespace();
+        protected abstract string GetNamespace();
         protected abstract string GetBaseSymbol();
         protected abstract string GetBaseUnit();
     }

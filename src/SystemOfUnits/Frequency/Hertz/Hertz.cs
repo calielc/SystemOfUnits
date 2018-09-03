@@ -3,26 +3,38 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace SystemOfUnits.Frequency.Hertz {
+    /// <summary>
+    /// Represents a Hertz (symbol Hz).
+    /// </summary>
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} Hz")]
-    public readonly partial struct Hertz : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<Hertz>,
-        IComparable,
-        IComparable<Hertz> {
+    public readonly partial struct Hertz : IUnit, IEquatable<Hertz>, IComparable<Hertz> {
+        private readonly double _value;
+
         public const string Symbol = "Hz";
 
         public Hertz(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(Hertz other) => Math.Abs(Value - other.Value) < 1e-6;
+        public Hertz Ceiling() => new Hertz(Math.Ceiling(_value));
 
-        public int CompareTo(Hertz other) => Value.CompareTo(other.Value);
+        public Hertz Round() => new Hertz(Math.Round(_value));
+        public Hertz Round(int digits) => new Hertz(Math.Round(_value, digits));
+        public Hertz Round(MidpointRounding mode) => new Hertz(Math.Round(_value, mode));
+
+        public Hertz Floor() => new Hertz(Math.Floor(_value));
+
+        public Hertz Truncate() => new Hertz(Math.Truncate(_value));
+
+        public Hertz Abs() => new Hertz(Math.Abs(_value));
+
+        public bool Equals(Hertz other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(Hertz other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -38,7 +50,7 @@ namespace SystemOfUnits.Frequency.Hertz {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} Hz", Value, formatProvider);
+            => string.Format(format ?? "{0} Hz", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -47,13 +59,11 @@ namespace SystemOfUnits.Frequency.Hertz {
             return obj is Hertz other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} Hz";
+        public override string ToString() => $"{_value:e} Hz";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new Hertz(Value);
 
         public static bool operator ==(Hertz self, Hertz other) => self.Equals(other);
         public static bool operator !=(Hertz self, Hertz other) => !self.Equals(other);
@@ -63,15 +73,15 @@ namespace SystemOfUnits.Frequency.Hertz {
         public static bool operator <=(Hertz self, Hertz other) => self.CompareTo(other) <= 0;
         public static bool operator >=(Hertz self, Hertz other) => self.CompareTo(other) >= 0;
 
-        public static Hertz operator +(Hertz self, Hertz other) => new Hertz(self.Value + other.Value);
-        public static Hertz operator -(Hertz self, Hertz other) => new Hertz(self.Value - other.Value);
+        public static Hertz operator +(Hertz self, Hertz other) => new Hertz(self._value + other._value);
+        public static Hertz operator -(Hertz self, Hertz other) => new Hertz(self._value - other._value);
 
-        public static Hertz operator *(Hertz self, double other) => new Hertz(self.Value * other);
-        public static Hertz operator *(double self, Hertz other) => new Hertz(self * other.Value);
+        public static Hertz operator *(Hertz self, double other) => new Hertz(self._value * other);
+        public static Hertz operator *(double self, Hertz other) => new Hertz(self * other._value);
 
-        public static Hertz operator /(Hertz self, double other) => new Hertz(self.Value / other);
+        public static Hertz operator /(Hertz self, double other) => new Hertz(self._value / other);
 
-        public static explicit operator double(Hertz self) => self.Value;
+        public static explicit operator double(Hertz self) => self._value;
         public static explicit operator Hertz(double self) => new Hertz(self);
     }
 }

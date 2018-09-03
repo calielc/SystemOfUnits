@@ -12,23 +12,32 @@ namespace SystemOfUnits.DigitalInformation.Byte {
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} YiB")]
-    public readonly partial struct Yobibyte : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<Yobibyte>,
-        IComparable,
-        IComparable<Yobibyte> {
+    public readonly partial struct Yobibyte : IUnit, IEquatable<Yobibyte>, IComparable<Yobibyte> {
+        private readonly double _value;
+
         public const string Symbol = "YiB";
 
         public Yobibyte(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(Yobibyte other) => Math.Abs(Value - other.Value) < 1e-6;
+        public Yobibyte Ceiling() => new Yobibyte(Math.Ceiling(_value));
 
-        public int CompareTo(Yobibyte other) => Value.CompareTo(other.Value);
+        public Yobibyte Round() => new Yobibyte(Math.Round(_value));
+        public Yobibyte Round(int digits) => new Yobibyte(Math.Round(_value, digits));
+        public Yobibyte Round(MidpointRounding mode) => new Yobibyte(Math.Round(_value, mode));
+
+        public Yobibyte Floor() => new Yobibyte(Math.Floor(_value));
+
+        public Yobibyte Truncate() => new Yobibyte(Math.Truncate(_value));
+
+        public Yobibyte Abs() => new Yobibyte(Math.Abs(_value));
+
+        public bool Equals(Yobibyte other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(Yobibyte other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -44,7 +53,7 @@ namespace SystemOfUnits.DigitalInformation.Byte {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} YiB", Value, formatProvider);
+            => string.Format(format ?? "{0} YiB", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -53,13 +62,11 @@ namespace SystemOfUnits.DigitalInformation.Byte {
             return obj is Yobibyte other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} YiB";
+        public override string ToString() => $"{_value:e} YiB";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new Yobibyte(Value);
 
         public static bool operator ==(Yobibyte self, Yobibyte other) => self.Equals(other);
         public static bool operator !=(Yobibyte self, Yobibyte other) => !self.Equals(other);
@@ -69,15 +76,15 @@ namespace SystemOfUnits.DigitalInformation.Byte {
         public static bool operator <=(Yobibyte self, Yobibyte other) => self.CompareTo(other) <= 0;
         public static bool operator >=(Yobibyte self, Yobibyte other) => self.CompareTo(other) >= 0;
 
-        public static Yobibyte operator +(Yobibyte self, Yobibyte other) => new Yobibyte(self.Value + other.Value);
-        public static Yobibyte operator -(Yobibyte self, Yobibyte other) => new Yobibyte(self.Value - other.Value);
+        public static Yobibyte operator +(Yobibyte self, Yobibyte other) => new Yobibyte(self._value + other._value);
+        public static Yobibyte operator -(Yobibyte self, Yobibyte other) => new Yobibyte(self._value - other._value);
 
-        public static Yobibyte operator *(Yobibyte self, double other) => new Yobibyte(self.Value * other);
-        public static Yobibyte operator *(double self, Yobibyte other) => new Yobibyte(self * other.Value);
+        public static Yobibyte operator *(Yobibyte self, double other) => new Yobibyte(self._value * other);
+        public static Yobibyte operator *(double self, Yobibyte other) => new Yobibyte(self * other._value);
 
-        public static Yobibyte operator /(Yobibyte self, double other) => new Yobibyte(self.Value / other);
+        public static Yobibyte operator /(Yobibyte self, double other) => new Yobibyte(self._value / other);
 
-        public static explicit operator double(Yobibyte self) => self.Value;
+        public static explicit operator double(Yobibyte self) => self._value;
         public static explicit operator Yobibyte(double self) => new Yobibyte(self);
     }
 }

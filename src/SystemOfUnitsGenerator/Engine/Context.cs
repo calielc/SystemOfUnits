@@ -3,18 +3,21 @@ using SystemOfUnitsGenerator.Common;
 
 namespace SystemOfUnitsGenerator.Engine {
     [DebuggerDisplay("{Name} ({Symbol})")]
-    internal readonly struct Context : IContext {
-        public Context(NamespaceDefinition namespaceCode, NamespaceDefinition namespaceTest, string name, string symbol) {
+    internal class Context : IContext {
+        public Context(string name, string symbol, XmlDoc xmlDoc, FullQualifiedClass codeClass, FullQualifiedClass testClass) {
             Name = name;
             Symbol = symbol;
-            XmlDoc = null;
-
-            CodeClass = namespaceCode + new ClassDefinition(name);
-            TestClass = namespaceTest + new ClassDefinition(name + "Test");
+            XmlDoc = xmlDoc;
+            CodeClass = codeClass;
+            TestClass = testClass;
         }
 
-        public Context(NamespaceDefinition namespaceCode, NamespaceDefinition namespaceTest, string name, string symbol, XmlDoc xmlDoc) : this(namespaceCode, namespaceTest, name, symbol) {
-            XmlDoc = xmlDoc;
+        protected Context(IContext context) {
+            Name = context.Name;
+            Symbol = context.Symbol;
+            XmlDoc = context.XmlDoc;
+            CodeClass = context.CodeClass;
+            TestClass = context.TestClass;
         }
 
         public string Name { get; }

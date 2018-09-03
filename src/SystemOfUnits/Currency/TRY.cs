@@ -9,23 +9,32 @@ namespace SystemOfUnits.Currency {
     [Serializable]
     [JsonConverter(typeof(CurrencyJsonConverter ))]
     [DebuggerDisplay("₺ {Value}")]
-    public readonly partial struct TRY : ICurrency, 
-        IFormattable,
-        ICloneable,
-        IEquatable<TRY>,
-        IComparable,
-        IComparable<TRY> {
+    public readonly partial struct TRY : ICurrency, IEquatable<TRY>, IComparable<TRY> {
+        private readonly decimal _value;
+
         public const string Symbol = "₺";
 
         public TRY(decimal value) {
-            Value = value;
+            _value = value;
         }
 
-        public decimal Value { get; }
+        public decimal Value => _value;
 
-        public bool Equals(TRY other) => Value == other.Value;
+        public TRY Ceiling() => new TRY(Math.Ceiling(_value));
 
-        public int CompareTo(TRY other) => Value.CompareTo(other.Value);
+        public TRY Round() => new TRY(Math.Round(_value));
+        public TRY Round(int digits) => new TRY(Math.Round(_value, digits));
+        public TRY Round(MidpointRounding mode) => new TRY(Math.Round(_value, mode));
+
+        public TRY Floor() => new TRY(Math.Floor(_value));
+
+        public TRY Truncate() => new TRY(Math.Truncate(_value));
+
+        public TRY Abs() => new TRY(Math.Abs(_value));
+
+        public bool Equals(TRY other) => this._value == other._value;
+
+        public int CompareTo(TRY other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -41,7 +50,7 @@ namespace SystemOfUnits.Currency {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "₺ {0}", Value, formatProvider);
+            => string.Format(format ?? "₺ {0}", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -50,13 +59,11 @@ namespace SystemOfUnits.Currency {
             return obj is TRY other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"₺ {Value:0.00}";
+        public override string ToString() => $"₺ {_value:#,##0.00}";
 
         string ICurrency.Symbol => Symbol;
-
-        object ICloneable.Clone() => new TRY(Value);
 
         public static bool operator ==(TRY self, TRY other) => self.Equals(other);
         public static bool operator !=(TRY self, TRY other) => !self.Equals(other);
@@ -66,15 +73,15 @@ namespace SystemOfUnits.Currency {
         public static bool operator <=(TRY self, TRY other) => self.CompareTo(other) <= 0;
         public static bool operator >=(TRY self, TRY other) => self.CompareTo(other) >= 0;
 
-        public static TRY operator +(TRY self, TRY other) => new TRY(self.Value + other.Value);
-        public static TRY operator -(TRY self, TRY other) => new TRY(self.Value - other.Value);
+        public static TRY operator +(TRY self, TRY other) => new TRY(self._value + other._value);
+        public static TRY operator -(TRY self, TRY other) => new TRY(self._value - other._value);
 
-        public static TRY operator *(TRY self, decimal other) => new TRY(self.Value * other);
-        public static TRY operator *(decimal self, TRY other) => new TRY(self * other.Value);
+        public static TRY operator *(TRY self, decimal other) => new TRY(self._value * other);
+        public static TRY operator *(decimal self, TRY other) => new TRY(self * other._value);
 
-        public static TRY operator /(TRY self, decimal other) => new TRY(self.Value / other);
+        public static TRY operator /(TRY self, decimal other) => new TRY(self._value / other);
 
-        public static explicit operator decimal(TRY self) => self.Value;
+        public static explicit operator decimal(TRY self) => self._value;
         public static explicit operator TRY(decimal self) => new TRY(self);
     }
 }

@@ -9,23 +9,32 @@ namespace SystemOfUnits.Currency {
     [Serializable]
     [JsonConverter(typeof(CurrencyJsonConverter ))]
     [DebuggerDisplay("NZ$ {Value}")]
-    public readonly partial struct NZD : ICurrency, 
-        IFormattable,
-        ICloneable,
-        IEquatable<NZD>,
-        IComparable,
-        IComparable<NZD> {
+    public readonly partial struct NZD : ICurrency, IEquatable<NZD>, IComparable<NZD> {
+        private readonly decimal _value;
+
         public const string Symbol = "NZ$";
 
         public NZD(decimal value) {
-            Value = value;
+            _value = value;
         }
 
-        public decimal Value { get; }
+        public decimal Value => _value;
 
-        public bool Equals(NZD other) => Value == other.Value;
+        public NZD Ceiling() => new NZD(Math.Ceiling(_value));
 
-        public int CompareTo(NZD other) => Value.CompareTo(other.Value);
+        public NZD Round() => new NZD(Math.Round(_value));
+        public NZD Round(int digits) => new NZD(Math.Round(_value, digits));
+        public NZD Round(MidpointRounding mode) => new NZD(Math.Round(_value, mode));
+
+        public NZD Floor() => new NZD(Math.Floor(_value));
+
+        public NZD Truncate() => new NZD(Math.Truncate(_value));
+
+        public NZD Abs() => new NZD(Math.Abs(_value));
+
+        public bool Equals(NZD other) => this._value == other._value;
+
+        public int CompareTo(NZD other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -41,7 +50,7 @@ namespace SystemOfUnits.Currency {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "NZ$ {0}", Value, formatProvider);
+            => string.Format(format ?? "NZ$ {0}", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -50,13 +59,11 @@ namespace SystemOfUnits.Currency {
             return obj is NZD other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"NZ$ {Value:0.00}";
+        public override string ToString() => $"NZ$ {_value:#,##0.00}";
 
         string ICurrency.Symbol => Symbol;
-
-        object ICloneable.Clone() => new NZD(Value);
 
         public static bool operator ==(NZD self, NZD other) => self.Equals(other);
         public static bool operator !=(NZD self, NZD other) => !self.Equals(other);
@@ -66,15 +73,15 @@ namespace SystemOfUnits.Currency {
         public static bool operator <=(NZD self, NZD other) => self.CompareTo(other) <= 0;
         public static bool operator >=(NZD self, NZD other) => self.CompareTo(other) >= 0;
 
-        public static NZD operator +(NZD self, NZD other) => new NZD(self.Value + other.Value);
-        public static NZD operator -(NZD self, NZD other) => new NZD(self.Value - other.Value);
+        public static NZD operator +(NZD self, NZD other) => new NZD(self._value + other._value);
+        public static NZD operator -(NZD self, NZD other) => new NZD(self._value - other._value);
 
-        public static NZD operator *(NZD self, decimal other) => new NZD(self.Value * other);
-        public static NZD operator *(decimal self, NZD other) => new NZD(self * other.Value);
+        public static NZD operator *(NZD self, decimal other) => new NZD(self._value * other);
+        public static NZD operator *(decimal self, NZD other) => new NZD(self * other._value);
 
-        public static NZD operator /(NZD self, decimal other) => new NZD(self.Value / other);
+        public static NZD operator /(NZD self, decimal other) => new NZD(self._value / other);
 
-        public static explicit operator decimal(NZD self) => self.Value;
+        public static explicit operator decimal(NZD self) => self._value;
         public static explicit operator NZD(decimal self) => new NZD(self);
     }
 }

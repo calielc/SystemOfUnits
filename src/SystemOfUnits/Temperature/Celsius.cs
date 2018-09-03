@@ -3,26 +3,38 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace SystemOfUnits.Temperature {
+    /// <summary>
+    /// Represents a Celsius (symbol °C).
+    /// </summary>
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} °C")]
-    public readonly partial struct Celsius : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<Celsius>,
-        IComparable,
-        IComparable<Celsius> {
+    public readonly partial struct Celsius : IUnit, IEquatable<Celsius>, IComparable<Celsius> {
+        private readonly double _value;
+
         public const string Symbol = "°C";
 
         public Celsius(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(Celsius other) => Math.Abs(Value - other.Value) < 1e-6;
+        public Celsius Ceiling() => new Celsius(Math.Ceiling(_value));
 
-        public int CompareTo(Celsius other) => Value.CompareTo(other.Value);
+        public Celsius Round() => new Celsius(Math.Round(_value));
+        public Celsius Round(int digits) => new Celsius(Math.Round(_value, digits));
+        public Celsius Round(MidpointRounding mode) => new Celsius(Math.Round(_value, mode));
+
+        public Celsius Floor() => new Celsius(Math.Floor(_value));
+
+        public Celsius Truncate() => new Celsius(Math.Truncate(_value));
+
+        public Celsius Abs() => new Celsius(Math.Abs(_value));
+
+        public bool Equals(Celsius other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(Celsius other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -38,7 +50,7 @@ namespace SystemOfUnits.Temperature {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} °C", Value, formatProvider);
+            => string.Format(format ?? "{0} °C", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -47,13 +59,11 @@ namespace SystemOfUnits.Temperature {
             return obj is Celsius other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} °C";
+        public override string ToString() => $"{_value:e} °C";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new Celsius(Value);
 
         public static bool operator ==(Celsius self, Celsius other) => self.Equals(other);
         public static bool operator !=(Celsius self, Celsius other) => !self.Equals(other);
@@ -63,15 +73,15 @@ namespace SystemOfUnits.Temperature {
         public static bool operator <=(Celsius self, Celsius other) => self.CompareTo(other) <= 0;
         public static bool operator >=(Celsius self, Celsius other) => self.CompareTo(other) >= 0;
 
-        public static Celsius operator +(Celsius self, Celsius other) => new Celsius(self.Value + other.Value);
-        public static Celsius operator -(Celsius self, Celsius other) => new Celsius(self.Value - other.Value);
+        public static Celsius operator +(Celsius self, Celsius other) => new Celsius(self._value + other._value);
+        public static Celsius operator -(Celsius self, Celsius other) => new Celsius(self._value - other._value);
 
-        public static Celsius operator *(Celsius self, double other) => new Celsius(self.Value * other);
-        public static Celsius operator *(double self, Celsius other) => new Celsius(self * other.Value);
+        public static Celsius operator *(Celsius self, double other) => new Celsius(self._value * other);
+        public static Celsius operator *(double self, Celsius other) => new Celsius(self * other._value);
 
-        public static Celsius operator /(Celsius self, double other) => new Celsius(self.Value / other);
+        public static Celsius operator /(Celsius self, double other) => new Celsius(self._value / other);
 
-        public static explicit operator double(Celsius self) => self.Value;
+        public static explicit operator double(Celsius self) => self._value;
         public static explicit operator Celsius(double self) => new Celsius(self);
     }
 }

@@ -6,10 +6,6 @@ using SystemOfUnitsGenerator.GeneratorsUnit.Builders;
 
 namespace SystemOfUnitsGenerator.GeneratorsUnit {
     internal sealed class CubicMetreClassesGenerator : IGenerator {
-        private static readonly NamespaceDefinition NamespaceUnit = Resource.NamespaceCubicMetre;
-
-        private static readonly NamespaceDefinition NamespaceCode = NamespaceDefinition.SystemOfUnits + NamespaceUnit;
-        private static readonly NamespaceDefinition NamespaceTest = NamespaceDefinition.SystemOfUnitsTests + NamespaceUnit;
 
         public IContentFileBuilderCollection Generate() {
             var contexts = BuildContexts();
@@ -20,13 +16,14 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
         public IReadOnlyCollection<ContextWithCastByPower> BuildContexts() {
             var builder = new ContextWithCastByPowerBuilder(10);
 
-            builder.Add(+9, new Context(NamespaceCode, NamespaceTest, "cubic kilometre", "km³", new XmlDoc("Represents a Cubic Kilometre (symbol km³).\nIt is a multiple of the unit <c>Cubic Metre</c>, where:\n- 1 Cubic Kilometre = 1,000 Cubic Hectometre\n- 1 Cubic Kilometre = 10^9 Cubic Metre")));
-            builder.Add(+6, new Context(NamespaceCode, NamespaceTest, "cubic hectometre", "hm³", new XmlDoc("Represents a Cubic Hectometre (symbol hm³).\nIt is a multiple of the unit <c>Cubic Metre</c>, where:\n- 1 Cubic Hectometre = 1,000 Cubic Decametre\n- 1 Cubic Hectometre = 10^6 Cubic Metre")));
-            builder.Add(+3, new Context(NamespaceCode, NamespaceTest, "cubic decametre", "dam³", new XmlDoc("Represents a Cubic Decametre (symbol dam³).\nIt is a multiple of the unit <c>Cubic Metre</c>, where:\n- 1 Cubic Decametre = 1,000 Cubic Metre\n- 1 Cubic Decametre = 10^3 Cubic Metre")));
-            builder.Add(00, new Context(NamespaceCode, NamespaceTest, "cubic metre", "m³", new XmlDoc("Represents a Cubic Metre (symbol m³).")));
-            builder.Add(-3, new Context(NamespaceCode, NamespaceTest, "cubic decimetre", "dm³", new XmlDoc("Represents a Cubic Decimetre (symbol dm³).\nIt is a multiple of the unit <c>Cubic Metre</c>, where:\n- 1,000 Cubic Decimetre = 1 Cubic Metre\n- 1 Cubic Decimetre = 10^-3 Cubic Metre")));
-            builder.Add(-6, new Context(NamespaceCode, NamespaceTest, "cubic centimetre", "cm³", new XmlDoc("Represents a Cubic Centimetre (symbol cm³).\nIt is a multiple of the unit <c>Cubic Metre</c>, where:\n- 1,000 Cubic Centimetre = 1 Cubic Decimetre\n- 1 Cubic Centimetre = 10^-6 Cubic Metre")));
-            builder.Add(-9, new Context(NamespaceCode, NamespaceTest, "cubic millimetre", "mm³", new XmlDoc("Represents a Cubic Millimetre (symbol mm³).\nIt is a multiple of the unit <c>Cubic Metre</c>, where:\n- 1,000 Cubic Millimetre = 1 Cubic Centimetre\n- 1 Cubic Millimetre = 10^-9 Cubic Metre")));
+            var namespaces = new UnitNamespaces(Resource.NamespaceCubicMetre);
+            builder.Add(+9, namespaces + new UnitDefinition("cubic kilometre", "km³", "Represents a Cubic Kilometre (symbol km³).\nIt is a multiple of the unit <c>Cubic Metre</c>, where:\n- 1 Cubic Kilometre = 1,000 Cubic Hectometre\n- 1 Cubic Kilometre = 10^9 Cubic Metre"));
+            builder.Add(+6, namespaces + new UnitDefinition("cubic hectometre", "hm³", "Represents a Cubic Hectometre (symbol hm³).\nIt is a multiple of the unit <c>Cubic Metre</c>, where:\n- 1 Cubic Hectometre = 1,000 Cubic Decametre\n- 1 Cubic Hectometre = 10^6 Cubic Metre"));
+            builder.Add(+3, namespaces + new UnitDefinition("cubic decametre", "dam³", "Represents a Cubic Decametre (symbol dam³).\nIt is a multiple of the unit <c>Cubic Metre</c>, where:\n- 1 Cubic Decametre = 1,000 Cubic Metre\n- 1 Cubic Decametre = 10^3 Cubic Metre"));
+            builder.Add(00, namespaces + new UnitDefinition("cubic metre", "m³"));
+            builder.Add(-3, namespaces + new UnitDefinition("cubic decimetre", "dm³",  "Represents a Cubic Decimetre (symbol dm³).\nIt is a multiple of the unit <c>Cubic Metre</c>, where:\n- 1,000 Cubic Decimetre = 1 Cubic Metre\n- 1 Cubic Decimetre = 10^-3 Cubic Metre"));
+            builder.Add(-6, namespaces + new UnitDefinition("cubic centimetre", "cm³", "Represents a Cubic Centimetre (symbol cm³).\nIt is a multiple of the unit <c>Cubic Metre</c>, where:\n- 1,000 Cubic Centimetre = 1 Cubic Decimetre\n- 1 Cubic Centimetre = 10^-6 Cubic Metre"));
+            builder.Add(-9, namespaces + new UnitDefinition("cubic millimetre", "mm³", "Represents a Cubic Millimetre (symbol mm³).\nIt is a multiple of the unit <c>Cubic Metre</c>, where:\n- 1,000 Cubic Millimetre = 1 Cubic Centimetre\n- 1 Cubic Millimetre = 10^-9 Cubic Metre"));
 
             builder.TestCases = new[]
             {

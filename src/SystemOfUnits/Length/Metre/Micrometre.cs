@@ -3,26 +3,38 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace SystemOfUnits.Length.Metre {
+    /// <summary>
+    /// Represents a Micrometre (symbol μm).
+    /// </summary>
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} μm")]
-    public readonly partial struct Micrometre : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<Micrometre>,
-        IComparable,
-        IComparable<Micrometre> {
+    public readonly partial struct Micrometre : IUnit, IEquatable<Micrometre>, IComparable<Micrometre> {
+        private readonly double _value;
+
         public const string Symbol = "μm";
 
         public Micrometre(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(Micrometre other) => Math.Abs(Value - other.Value) < 1e-6;
+        public Micrometre Ceiling() => new Micrometre(Math.Ceiling(_value));
 
-        public int CompareTo(Micrometre other) => Value.CompareTo(other.Value);
+        public Micrometre Round() => new Micrometre(Math.Round(_value));
+        public Micrometre Round(int digits) => new Micrometre(Math.Round(_value, digits));
+        public Micrometre Round(MidpointRounding mode) => new Micrometre(Math.Round(_value, mode));
+
+        public Micrometre Floor() => new Micrometre(Math.Floor(_value));
+
+        public Micrometre Truncate() => new Micrometre(Math.Truncate(_value));
+
+        public Micrometre Abs() => new Micrometre(Math.Abs(_value));
+
+        public bool Equals(Micrometre other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(Micrometre other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -38,7 +50,7 @@ namespace SystemOfUnits.Length.Metre {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} μm", Value, formatProvider);
+            => string.Format(format ?? "{0} μm", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -47,13 +59,11 @@ namespace SystemOfUnits.Length.Metre {
             return obj is Micrometre other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} μm";
+        public override string ToString() => $"{_value:e} μm";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new Micrometre(Value);
 
         public static bool operator ==(Micrometre self, Micrometre other) => self.Equals(other);
         public static bool operator !=(Micrometre self, Micrometre other) => !self.Equals(other);
@@ -63,15 +73,15 @@ namespace SystemOfUnits.Length.Metre {
         public static bool operator <=(Micrometre self, Micrometre other) => self.CompareTo(other) <= 0;
         public static bool operator >=(Micrometre self, Micrometre other) => self.CompareTo(other) >= 0;
 
-        public static Micrometre operator +(Micrometre self, Micrometre other) => new Micrometre(self.Value + other.Value);
-        public static Micrometre operator -(Micrometre self, Micrometre other) => new Micrometre(self.Value - other.Value);
+        public static Micrometre operator +(Micrometre self, Micrometre other) => new Micrometre(self._value + other._value);
+        public static Micrometre operator -(Micrometre self, Micrometre other) => new Micrometre(self._value - other._value);
 
-        public static Micrometre operator *(Micrometre self, double other) => new Micrometre(self.Value * other);
-        public static Micrometre operator *(double self, Micrometre other) => new Micrometre(self * other.Value);
+        public static Micrometre operator *(Micrometre self, double other) => new Micrometre(self._value * other);
+        public static Micrometre operator *(double self, Micrometre other) => new Micrometre(self * other._value);
 
-        public static Micrometre operator /(Micrometre self, double other) => new Micrometre(self.Value / other);
+        public static Micrometre operator /(Micrometre self, double other) => new Micrometre(self._value / other);
 
-        public static explicit operator double(Micrometre self) => self.Value;
+        public static explicit operator double(Micrometre self) => self._value;
         public static explicit operator Micrometre(double self) => new Micrometre(self);
     }
 }

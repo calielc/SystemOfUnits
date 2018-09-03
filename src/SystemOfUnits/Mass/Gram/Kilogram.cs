@@ -3,26 +3,38 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace SystemOfUnits.Mass.Gram {
+    /// <summary>
+    /// Represents a Kilogram (symbol kg).
+    /// </summary>
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} kg")]
-    public readonly partial struct Kilogram : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<Kilogram>,
-        IComparable,
-        IComparable<Kilogram> {
+    public readonly partial struct Kilogram : IUnit, IEquatable<Kilogram>, IComparable<Kilogram> {
+        private readonly double _value;
+
         public const string Symbol = "kg";
 
         public Kilogram(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(Kilogram other) => Math.Abs(Value - other.Value) < 1e-6;
+        public Kilogram Ceiling() => new Kilogram(Math.Ceiling(_value));
 
-        public int CompareTo(Kilogram other) => Value.CompareTo(other.Value);
+        public Kilogram Round() => new Kilogram(Math.Round(_value));
+        public Kilogram Round(int digits) => new Kilogram(Math.Round(_value, digits));
+        public Kilogram Round(MidpointRounding mode) => new Kilogram(Math.Round(_value, mode));
+
+        public Kilogram Floor() => new Kilogram(Math.Floor(_value));
+
+        public Kilogram Truncate() => new Kilogram(Math.Truncate(_value));
+
+        public Kilogram Abs() => new Kilogram(Math.Abs(_value));
+
+        public bool Equals(Kilogram other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(Kilogram other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -38,7 +50,7 @@ namespace SystemOfUnits.Mass.Gram {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} kg", Value, formatProvider);
+            => string.Format(format ?? "{0} kg", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -47,13 +59,11 @@ namespace SystemOfUnits.Mass.Gram {
             return obj is Kilogram other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} kg";
+        public override string ToString() => $"{_value:e} kg";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new Kilogram(Value);
 
         public static bool operator ==(Kilogram self, Kilogram other) => self.Equals(other);
         public static bool operator !=(Kilogram self, Kilogram other) => !self.Equals(other);
@@ -63,15 +73,15 @@ namespace SystemOfUnits.Mass.Gram {
         public static bool operator <=(Kilogram self, Kilogram other) => self.CompareTo(other) <= 0;
         public static bool operator >=(Kilogram self, Kilogram other) => self.CompareTo(other) >= 0;
 
-        public static Kilogram operator +(Kilogram self, Kilogram other) => new Kilogram(self.Value + other.Value);
-        public static Kilogram operator -(Kilogram self, Kilogram other) => new Kilogram(self.Value - other.Value);
+        public static Kilogram operator +(Kilogram self, Kilogram other) => new Kilogram(self._value + other._value);
+        public static Kilogram operator -(Kilogram self, Kilogram other) => new Kilogram(self._value - other._value);
 
-        public static Kilogram operator *(Kilogram self, double other) => new Kilogram(self.Value * other);
-        public static Kilogram operator *(double self, Kilogram other) => new Kilogram(self * other.Value);
+        public static Kilogram operator *(Kilogram self, double other) => new Kilogram(self._value * other);
+        public static Kilogram operator *(double self, Kilogram other) => new Kilogram(self * other._value);
 
-        public static Kilogram operator /(Kilogram self, double other) => new Kilogram(self.Value / other);
+        public static Kilogram operator /(Kilogram self, double other) => new Kilogram(self._value / other);
 
-        public static explicit operator double(Kilogram self) => self.Value;
+        public static explicit operator double(Kilogram self) => self._value;
         public static explicit operator Kilogram(double self) => new Kilogram(self);
     }
 }

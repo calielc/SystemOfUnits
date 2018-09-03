@@ -178,6 +178,15 @@ namespace SystemOfUnitsGenerator {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DigitalInformation.Pixel.
+        /// </summary>
+        internal static string NamespacePixel {
+            get {
+                return ResourceManager.GetString("NamespacePixel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Area.SquareMetre.
         /// </summary>
         internal static string NamespaceSquareMetre {

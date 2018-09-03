@@ -29,12 +29,141 @@ namespace SystemOfUnitsTests.DigitalInformation.Byte {
             Assert.AreEqual(Gibibyte.Symbol, actual.Symbol);
         }
 
-        [TestCaseSource(nameof(CasesValues))]
-        public void Should_clone(double value) {
-            var expected = new Gibibyte(value);
+        [TestCase(-8.9d, -9d)]
+        [TestCase(-7.1d, -8d)]
+        [TestCase(-6.0d, -6d)]
+        [TestCase(0d, 0d)]
+        [TestCase(12.0d, 12d)]
+        [TestCase(13.1d, 13d)]
+        [TestCase(14.9d, 14d)]
+        public void Should_floor_value(double value, double expectedValue) {
+            var expected = new Gibibyte(expectedValue);
 
-            ICloneable cloneable = new Gibibyte(value);
-            var actual = cloneable.Clone();
+            var instance = new Gibibyte(value);
+            var actual = instance.Floor();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-7.9d, -8d)]
+        [TestCase(-6.6d, -7d)]
+        [TestCase(-5.5d, -6d)]
+        [TestCase(-4.1d, -4d)]
+        [TestCase(-3.0d, -3d)]
+        [TestCase(0d, 0d)]
+        [TestCase(12.0d, 12d)]
+        [TestCase(13.1d, 13d)]
+        [TestCase(14.5d, 14d)]
+        [TestCase(15.6d, 16d)]
+        [TestCase(16.9d, 17d)]
+        public void Should_round_value(double value, double expectedValue) {
+            var expected = new Gibibyte(expectedValue);
+
+            var instance = new Gibibyte(value);
+            var actual = instance.Round();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-7.59d, -7.6d)]
+        [TestCase(-6.46d, -6.5d)]
+        [TestCase(-5.35d, -5.4d)]
+        [TestCase(-4.21d, -4.2d)]
+        [TestCase(-3.10d, -3.1d)]
+        [TestCase(0d, 0d)]
+        [TestCase(12.30d, 12.3d)]
+        [TestCase(13.41d, 13.4d)]
+        [TestCase(14.55d, 14.6d)]
+        [TestCase(15.66d, 15.7d)]
+        [TestCase(16.79d, 16.8d)]
+        public void Should_round_value_withDigit(double value, double expectedValue) {
+            var expected = new Gibibyte(expectedValue);
+
+            var instance = new Gibibyte(value);
+            var actual = instance.Round(1);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(MidpointRounding.AwayFromZero, -7.9d, -8d)]
+        [TestCase(MidpointRounding.AwayFromZero, -6.6d, -7d)]
+        [TestCase(MidpointRounding.AwayFromZero, -5.5d, -6d)]
+        [TestCase(MidpointRounding.AwayFromZero, -4.1d, -4d)]
+        [TestCase(MidpointRounding.AwayFromZero, -3.0d, -3d)]
+        [TestCase(MidpointRounding.AwayFromZero, 0d, 0d)]
+        [TestCase(MidpointRounding.AwayFromZero, 12.0d, 12d)]
+        [TestCase(MidpointRounding.AwayFromZero, 13.1d, 13d)]
+        [TestCase(MidpointRounding.AwayFromZero, 14.5d, 15d)]
+        [TestCase(MidpointRounding.AwayFromZero, 15.6d, 16d)]
+        [TestCase(MidpointRounding.AwayFromZero, 16.9d, 17d)]
+        [TestCase(MidpointRounding.ToEven, -7.9d, -8d)]
+        [TestCase(MidpointRounding.ToEven, -6.6d, -7d)]
+        [TestCase(MidpointRounding.ToEven, -5.5d, -6d)]
+        [TestCase(MidpointRounding.ToEven, -4.1d, -4d)]
+        [TestCase(MidpointRounding.ToEven, -3.0d, -3d)]
+        [TestCase(MidpointRounding.ToEven, 0d, 0d)]
+        [TestCase(MidpointRounding.ToEven, 12.0d, 12d)]
+        [TestCase(MidpointRounding.ToEven, 13.1d, 13d)]
+        [TestCase(MidpointRounding.ToEven, 14.5d, 14d)]
+        [TestCase(MidpointRounding.ToEven, 15.6d, 16d)]
+        [TestCase(MidpointRounding.ToEven, 16.9d, 17d)]
+        public void Should_roundvalue_withMode(MidpointRounding mode, double value, double expectedValue) {
+            var expected = new Gibibyte(expectedValue);
+
+            var instance = new Gibibyte(value);
+            var actual = instance.Round(mode);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-8.9d, -8d)]
+        [TestCase(-7.1d, -7d)]
+        [TestCase(-6.0d, -6d)]
+        [TestCase(0d, 0d)]
+        [TestCase(12.0d, 12d)]
+        [TestCase(13.1d, 14d)]
+        [TestCase(14.9d, 15d)]
+        public void Should_ceiling_value(double value, double expectedValue) {
+            var expected = new Gibibyte(expectedValue);
+
+            var instance = new Gibibyte(value);
+            var actual = instance.Ceiling();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-7.9d, -7d)]
+        [TestCase(-6.6d, -6d)]
+        [TestCase(-5.5d, -5d)]
+        [TestCase(-4.1d, -4d)]
+        [TestCase(-3.0d, -3d)]
+        [TestCase(0d, 0d)]
+        [TestCase(12.0d, 12d)]
+        [TestCase(13.1d, 13d)]
+        [TestCase(14.5d, 14d)]
+        [TestCase(15.6d, 15d)]
+        [TestCase(16.9d, 16d)]
+        public void Should_truncate_value(double value, double expectedValue) {
+            var expected = new Gibibyte(expectedValue);
+
+            var instance = new Gibibyte(value);
+            var actual = instance.Truncate();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-8.9d, 8.9d)]
+        [TestCase(-7.1d, 7.1d)]
+        [TestCase(-6.0d, 6.0d)]
+        [TestCase(0d, 0d)]
+        [TestCase(12.0d, 12.0d)]
+        [TestCase(13.1d, 13.1d)]
+        [TestCase(14.9d, 14.9d)]
+        public void Should_absolute_value(double value, double expectedValue) {
+            var expected = new Gibibyte(expectedValue);
+
+            var instance = new Gibibyte(value);
+            var actual = instance.Abs();
 
             Assert.AreEqual(expected, actual);
         }

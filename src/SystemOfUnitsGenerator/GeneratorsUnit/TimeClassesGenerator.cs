@@ -6,11 +6,6 @@ using SystemOfUnitsGenerator.GeneratorsUnit.Builders;
 
 namespace SystemOfUnitsGenerator.GeneratorsUnit {
     internal sealed class TimeClassesGenerator : IGenerator {
-        private static readonly NamespaceDefinition NamespaceTime = Resource.NamespaceTime;
-
-        private static readonly NamespaceDefinition NamespaceCode = NamespaceDefinition.SystemOfUnits + NamespaceTime;
-        private static readonly NamespaceDefinition NamespaceTest = NamespaceDefinition.SystemOfUnitsTests + NamespaceTime;
-
         public IContentFileBuilderCollection Generate() {
             var contexts = BuildContexts().ToReadOnlyList();
 
@@ -54,9 +49,10 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
 
         private static IEnumerable<ContextWithCastByRatio> BuildContexts() {
             var zeroTestCase = new CastRatioTestCase(0, 0, 0, 0, 0, 0, 0, 0);
+            var namespaces = new UnitNamespaces(Resource.NamespaceTime);
 
             yield return new ContextWithCastByRatio(
-                context: new Context(NamespaceCode, NamespaceTest, "year", "years"),
+                context: namespaces + new UnitDefinition("year", "years"),
                 ratio: new CastRatio(146_097d / 400d, "/* ~365.2425 */ 146_097d / 400d", "DayPortion"),
                 testCases: new[] {
                     zeroTestCase,
@@ -66,7 +62,7 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
             );
 
             yield return new ContextWithCastByRatio(
-                context: new Context(NamespaceCode, NamespaceTest, "month", "months"),
+                context: namespaces + new UnitDefinition("month", "months"),
                 ratio: new CastRatio(48_699d / 1_600d, "/* ~30.436875 */ 48_699d / 1_600d", "DayPortion"),
                 testCases: new[] {
                     zeroTestCase,
@@ -76,7 +72,7 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
             );
 
             yield return new ContextWithCastByRatio(
-                context: new Context(NamespaceCode, NamespaceTest, "week", "weeks"),
+                context: namespaces + new UnitDefinition("week", "weeks"),
                 ratio: new CastRatio(7, "7", "DayPortion"),
                 testCases: new[] {
                     zeroTestCase,
@@ -86,7 +82,7 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
             );
 
             yield return new ContextWithCastByRatio(
-                context: new Context(NamespaceCode, NamespaceTest, "day", "days"),
+                context: namespaces + new UnitDefinition("day", "days"),
                 ratio: new CastRatio(1, "1", "DayPortion"),
                 testCases: new[] {
                     zeroTestCase,
@@ -97,7 +93,7 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
             );
 
             yield return new ContextWithCastByRatio(
-                context: new Context(NamespaceCode, NamespaceTest, "hour", "hours"),
+                context: namespaces + new UnitDefinition("hour", "hours"),
                 ratio: new CastRatio(1d / 24d, "1d / 24d", "DayPortion"),
                 testCases: new[] {
                     zeroTestCase,
@@ -107,7 +103,7 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
             );
 
             yield return new ContextWithCastByRatio(
-                context: new Context(NamespaceCode, NamespaceTest, "minute", "minutes"),
+                context: namespaces + new UnitDefinition("minute", "minutes"),
                 ratio: new CastRatio(1d / (24d * 60d), "1d / (24d * 60d)", "DayPortion"),
                 testCases: new[] {
                     zeroTestCase,
@@ -117,7 +113,7 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
             );
 
             yield return new ContextWithCastByRatio(
-                context: new Context(NamespaceCode, NamespaceTest, "second", "seconds"),
+                context: namespaces + new UnitDefinition("second", "seconds"),
                 ratio: new CastRatio(1d / (24d * 60d * 60d), "1d / (24d * 60d * 60d)", "DayPortion"),
                 testCases: new[] {
                     zeroTestCase,
@@ -127,7 +123,7 @@ namespace SystemOfUnitsGenerator.GeneratorsUnit {
             );
 
             yield return new ContextWithCastByRatio(
-                context: new Context(NamespaceCode, NamespaceTest, "Millisecond", "milliseconds"),
+                context: namespaces + new UnitDefinition("millisecond", "milliseconds"),
                 ratio: new CastRatio(1d / (24d * 60d * 60d * 1_000d), "1d / (24d * 60d * 60d * 1_000d)", "DayPortion"),
                 testCases: new[] {
                     zeroTestCase,

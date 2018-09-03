@@ -12,23 +12,32 @@ namespace SystemOfUnits.Volume.CubicMetre {
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} mm³")]
-    public readonly partial struct CubicMillimetre : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<CubicMillimetre>,
-        IComparable,
-        IComparable<CubicMillimetre> {
+    public readonly partial struct CubicMillimetre : IUnit, IEquatable<CubicMillimetre>, IComparable<CubicMillimetre> {
+        private readonly double _value;
+
         public const string Symbol = "mm³";
 
         public CubicMillimetre(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(CubicMillimetre other) => Math.Abs(Value - other.Value) < 1e-6;
+        public CubicMillimetre Ceiling() => new CubicMillimetre(Math.Ceiling(_value));
 
-        public int CompareTo(CubicMillimetre other) => Value.CompareTo(other.Value);
+        public CubicMillimetre Round() => new CubicMillimetre(Math.Round(_value));
+        public CubicMillimetre Round(int digits) => new CubicMillimetre(Math.Round(_value, digits));
+        public CubicMillimetre Round(MidpointRounding mode) => new CubicMillimetre(Math.Round(_value, mode));
+
+        public CubicMillimetre Floor() => new CubicMillimetre(Math.Floor(_value));
+
+        public CubicMillimetre Truncate() => new CubicMillimetre(Math.Truncate(_value));
+
+        public CubicMillimetre Abs() => new CubicMillimetre(Math.Abs(_value));
+
+        public bool Equals(CubicMillimetre other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(CubicMillimetre other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -44,7 +53,7 @@ namespace SystemOfUnits.Volume.CubicMetre {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} mm³", Value, formatProvider);
+            => string.Format(format ?? "{0} mm³", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -53,13 +62,11 @@ namespace SystemOfUnits.Volume.CubicMetre {
             return obj is CubicMillimetre other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} mm³";
+        public override string ToString() => $"{_value:e} mm³";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new CubicMillimetre(Value);
 
         public static bool operator ==(CubicMillimetre self, CubicMillimetre other) => self.Equals(other);
         public static bool operator !=(CubicMillimetre self, CubicMillimetre other) => !self.Equals(other);
@@ -69,15 +76,15 @@ namespace SystemOfUnits.Volume.CubicMetre {
         public static bool operator <=(CubicMillimetre self, CubicMillimetre other) => self.CompareTo(other) <= 0;
         public static bool operator >=(CubicMillimetre self, CubicMillimetre other) => self.CompareTo(other) >= 0;
 
-        public static CubicMillimetre operator +(CubicMillimetre self, CubicMillimetre other) => new CubicMillimetre(self.Value + other.Value);
-        public static CubicMillimetre operator -(CubicMillimetre self, CubicMillimetre other) => new CubicMillimetre(self.Value - other.Value);
+        public static CubicMillimetre operator +(CubicMillimetre self, CubicMillimetre other) => new CubicMillimetre(self._value + other._value);
+        public static CubicMillimetre operator -(CubicMillimetre self, CubicMillimetre other) => new CubicMillimetre(self._value - other._value);
 
-        public static CubicMillimetre operator *(CubicMillimetre self, double other) => new CubicMillimetre(self.Value * other);
-        public static CubicMillimetre operator *(double self, CubicMillimetre other) => new CubicMillimetre(self * other.Value);
+        public static CubicMillimetre operator *(CubicMillimetre self, double other) => new CubicMillimetre(self._value * other);
+        public static CubicMillimetre operator *(double self, CubicMillimetre other) => new CubicMillimetre(self * other._value);
 
-        public static CubicMillimetre operator /(CubicMillimetre self, double other) => new CubicMillimetre(self.Value / other);
+        public static CubicMillimetre operator /(CubicMillimetre self, double other) => new CubicMillimetre(self._value / other);
 
-        public static explicit operator double(CubicMillimetre self) => self.Value;
+        public static explicit operator double(CubicMillimetre self) => self._value;
         public static explicit operator CubicMillimetre(double self) => new CubicMillimetre(self);
     }
 }

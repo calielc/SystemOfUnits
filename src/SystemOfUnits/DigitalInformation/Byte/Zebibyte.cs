@@ -12,23 +12,32 @@ namespace SystemOfUnits.DigitalInformation.Byte {
     [Serializable]
     [JsonConverter(typeof(UnitJsonConverter))]
     [DebuggerDisplay("{Value} ZiB")]
-    public readonly partial struct Zebibyte : IUnit, 
-        IFormattable,
-        ICloneable,
-        IEquatable<Zebibyte>,
-        IComparable,
-        IComparable<Zebibyte> {
+    public readonly partial struct Zebibyte : IUnit, IEquatable<Zebibyte>, IComparable<Zebibyte> {
+        private readonly double _value;
+
         public const string Symbol = "ZiB";
 
         public Zebibyte(double value) {
-            Value = value;
+            _value = value;
         }
 
-        public double Value { get; }
+        public double Value => _value;
 
-        public bool Equals(Zebibyte other) => Math.Abs(Value - other.Value) < 1e-6;
+        public Zebibyte Ceiling() => new Zebibyte(Math.Ceiling(_value));
 
-        public int CompareTo(Zebibyte other) => Value.CompareTo(other.Value);
+        public Zebibyte Round() => new Zebibyte(Math.Round(_value));
+        public Zebibyte Round(int digits) => new Zebibyte(Math.Round(_value, digits));
+        public Zebibyte Round(MidpointRounding mode) => new Zebibyte(Math.Round(_value, mode));
+
+        public Zebibyte Floor() => new Zebibyte(Math.Floor(_value));
+
+        public Zebibyte Truncate() => new Zebibyte(Math.Truncate(_value));
+
+        public Zebibyte Abs() => new Zebibyte(Math.Abs(_value));
+
+        public bool Equals(Zebibyte other) => Math.Abs(this._value - other._value) < 1e-6;
+
+        public int CompareTo(Zebibyte other) => this._value.CompareTo(other._value);
 
         public int CompareTo(object obj) {
             switch (obj) {
@@ -44,7 +53,7 @@ namespace SystemOfUnits.DigitalInformation.Byte {
         }
 
         public string ToString(string format, IFormatProvider formatProvider)
-            => string.Format(format ?? "{0} ZiB", Value, formatProvider);
+            => string.Format(format ?? "{0} ZiB", _value, formatProvider);
 
         public override bool Equals(object obj) {
             if (obj is null) {
@@ -53,13 +62,11 @@ namespace SystemOfUnits.DigitalInformation.Byte {
             return obj is Zebibyte other && Equals(other);
         }
 
-        public override int GetHashCode() => Value.GetHashCode();
+        public override int GetHashCode() => _value.GetHashCode();
 
-        public override string ToString() => $"{Value:e} ZiB";
+        public override string ToString() => $"{_value:e} ZiB";
 
         string IUnit.Symbol => Symbol;
-
-        object ICloneable.Clone() => new Zebibyte(Value);
 
         public static bool operator ==(Zebibyte self, Zebibyte other) => self.Equals(other);
         public static bool operator !=(Zebibyte self, Zebibyte other) => !self.Equals(other);
@@ -69,15 +76,15 @@ namespace SystemOfUnits.DigitalInformation.Byte {
         public static bool operator <=(Zebibyte self, Zebibyte other) => self.CompareTo(other) <= 0;
         public static bool operator >=(Zebibyte self, Zebibyte other) => self.CompareTo(other) >= 0;
 
-        public static Zebibyte operator +(Zebibyte self, Zebibyte other) => new Zebibyte(self.Value + other.Value);
-        public static Zebibyte operator -(Zebibyte self, Zebibyte other) => new Zebibyte(self.Value - other.Value);
+        public static Zebibyte operator +(Zebibyte self, Zebibyte other) => new Zebibyte(self._value + other._value);
+        public static Zebibyte operator -(Zebibyte self, Zebibyte other) => new Zebibyte(self._value - other._value);
 
-        public static Zebibyte operator *(Zebibyte self, double other) => new Zebibyte(self.Value * other);
-        public static Zebibyte operator *(double self, Zebibyte other) => new Zebibyte(self * other.Value);
+        public static Zebibyte operator *(Zebibyte self, double other) => new Zebibyte(self._value * other);
+        public static Zebibyte operator *(double self, Zebibyte other) => new Zebibyte(self * other._value);
 
-        public static Zebibyte operator /(Zebibyte self, double other) => new Zebibyte(self.Value / other);
+        public static Zebibyte operator /(Zebibyte self, double other) => new Zebibyte(self._value / other);
 
-        public static explicit operator double(Zebibyte self) => self.Value;
+        public static explicit operator double(Zebibyte self) => self._value;
         public static explicit operator Zebibyte(double self) => new Zebibyte(self);
     }
 }

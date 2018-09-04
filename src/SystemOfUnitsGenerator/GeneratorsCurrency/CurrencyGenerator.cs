@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using SystemOfUnitsGenerator.Common;
 using SystemOfUnitsGenerator.Engine;
-using SystemOfUnitsGenerator.Generators;
 using SystemOfUnitsGenerator.GeneratorsCurrency.Builders;
 
 namespace SystemOfUnitsGenerator.GeneratorsCurrency {

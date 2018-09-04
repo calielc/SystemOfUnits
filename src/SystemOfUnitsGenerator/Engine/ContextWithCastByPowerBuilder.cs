@@ -19,13 +19,13 @@ namespace SystemOfUnitsGenerator.Engine {
             var result = new List<ContextWithCastByPower>(_items.Count);
 
             for (var idxThis = 0; idxThis < _items.Count; idxThis++) {
-                var thisItem = _items[idxThis];
+                var (exponent, context) = _items[idxThis];
 
-                var castPower = new CastPower(_baseNumber, thisItem.exponent);
+                var castPower = new CastPower(_baseNumber, exponent);
 
                 var testCases = BuildTestCases(idxThis);
 
-                result.Add(new ContextWithCastByPower(thisItem.context, castPower, testCases));
+                result.Add(new ContextWithCastByPower(context, castPower, testCases));
             }
 
             return result;

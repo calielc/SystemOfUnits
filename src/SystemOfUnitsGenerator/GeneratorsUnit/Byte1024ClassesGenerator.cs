@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using SystemOfUnitsGenerator.Common;
 using SystemOfUnitsGenerator.Engine;
-using SystemOfUnitsGenerator.Generators;
 using SystemOfUnitsGenerator.GeneratorsUnit.Builders;
 
 namespace SystemOfUnitsGenerator.GeneratorsUnit {

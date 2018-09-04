@@ -194,4 +194,7 @@
     <value>DigitalInformation.Pixel</value>
     <comment>Pixel Namespace</comment>
   </data>
+  <data name="SummaryUnit" xml:space="preserve">
+    <value>Represents a {0} (symbol {1}).</value>
+  </data>
 </root>

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SystemOfUnitsGenerator.Common;
-using SystemOfUnitsGenerator.Generators;
 using SystemOfUnitsGenerator.GeneratorsCurrency;
 using SystemOfUnitsGenerator.GeneratorsUnit;
 

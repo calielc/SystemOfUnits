@@ -81,7 +81,6 @@
     <Compile Include="GeneratorsUnit\BitClassesGenerator.cs" />
     <Compile Include="GeneratorsUnit\Byte1000ClassesGenerator.cs" />
     <Compile Include="GeneratorsUnit\Byte1024ClassesGenerator.cs" />
-    <Compile Include="GeneratorsUnit\ContextWithCastByPowerBuilder.cs" />
     <Compile Include="GeneratorsUnit\CubicMetreClassesGenerator.cs" />
     <Compile Include="Engine\ContextWithCastByPower.cs" />
     <Compile Include="Engine\IContext.cs" />

@@ -1,6 +1,6 @@
 ﻿using SystemOfUnitsGenerator.Common;
 
-namespace SystemOfUnitsGenerator.Generators {
+namespace SystemOfUnitsGenerator {
     internal interface IGenerator {
         IContentFileBuilderCollection Generate();
     }

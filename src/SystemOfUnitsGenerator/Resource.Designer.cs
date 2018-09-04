@@ -223,6 +223,15 @@ namespace SystemOfUnitsGenerator {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Represents a {0} (symbol {1})..
+        /// </summary>
+        internal static string SummaryUnit {
+            get {
+                return ResourceManager.GetString("SummaryUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SystemOfUnits.
         /// </summary>
         internal static string SystemOfUnits {
